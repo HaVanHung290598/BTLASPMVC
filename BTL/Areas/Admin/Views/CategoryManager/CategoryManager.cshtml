@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "CategoryManager";
+}
+
+@section loadScript {
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/category-manager.css">
+}
+
+<div class="category_management">
+    <div>
+        <h1>Danh sách danh mục</h1>
+        <i class="far fa-plus-square add_category" title="Thêm danh mục" onclick="showModal()"></i>
+    </div>
+    <div id="modal_add_category">
+        <div id="modal_add_category_layer" onclick="hiddenModal()"></div>
+        <div id="modal_add_category_content">
+            <input type="text" placeholder="Tên danh mục" id="add_category_input" onchange="handleAddCategory(event)">
+        </div>
+    </div>
+    <table id="category_table">
+        <tr>
+            <th>STT</th>
+            <th>Mã danh mục</th>
+            <th>Tên danh mục</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>dm1003</td>
+            <td id="dm_2" class="category_item_name">Giày da nam</td>
+            <td class="action">
+                <span class="icon">
+                    <i class="fas fa-edit" id="dm_edit_2" onclick="editRow(2)" title="Sửa danh mục"></i>
+                    <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_2" onclick="editRow(2, true)" title="Hoàn thành sửa danh mục"></i>
+                </span>
+                <span class="icon">
+                    <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>dm1002</td>
+            <td id="dm_1" class="category_item_name">Thắt lưng nam</td>
+            <td class="action">
+                <span class="icon">
+                    <i class="fas fa-edit" id="dm_edit_1" onclick="editRow(1)" title="Sửa danh mục"></i>
+                    <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_1" onclick="editRow(1, true)" title="Hoàn thành sửa danh mục"></i>
+                </span>
+                <span class="icon">
+                    <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>dm1001</td>
+            <td id="dm_0" class="category_item_name">Ví da nam</td>
+            <td class="action">
+                <span class="icon">
+                    <i class="fas fa-edit" id="dm_edit_0" onclick="editRow(0)" title="Sửa danh mục"></i>
+                    <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_0" onclick="editRow(0, true)" title="Hoàn thành sửa danh mục"></i>
+                </span>
+                <span class="icon">
+                    <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>
+

@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "SideBar";
+}
+
+<nav class="sidebar">
+    <div class="side_content">
+        <div class="logo">
+            <span class="icon">
+                <i class="fab fa-hornbill"></i>
+            </span>
+            <h1>Hornbill</h1>
+        </div>
+        <ul class="sidebar_menu">
+            <li class="menu_item">
+                <a>
+                    <span>
+                        <span class="icon">
+                            <i class="fas fa-landmark"></i>
+                        </span>
+                        Thống kê
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-greater-than"></i>
+                    </span>
+                </a>
+            </li>
+            <li class="menu_item">
+                <a href="@Url.Action("AccountManager", "AccountManager")">
+                    <span>
+                        <span class="icon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        Quản lý tài khoản
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-greater-than"></i>
+                    </span>
+                </a>
+            </li>
+            <li class="menu_item">
+                <a href="@Url.Action("CategoryManager", "CategoryManager")">
+                    <span>
+                        <span class="icon">
+                            <i class="fas fa-warehouse"></i>
+                        </span>
+                        Quản lý danh mục
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-greater-than"></i>
+                    </span>
+                </a>
+            </li>
+            <li class="menu_item">
+                <a href="@Url.Action("ProductManager", "ProductManager")">
+                    <span>
+                        <span class="icon">
+                            <i class="fab fa-product-hunt"></i>
+                        </span>
+                        Quản lý sản phẩm
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-greater-than"></i>
+                    </span>
+                </a>
+            </li>
+            <li class="menu_item">
+                <a>
+                    <span>
+                        <span class="icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </span>
+                        Quản lý hóa đơn
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-greater-than"></i>
+                    </span>
+                </a>
+            </li>
+            <li class="menu_item">
+                <a href="@Url.Action("Profile", "Profile")">
+                    <span>
+                        <span class="icon">
+                            <i class="fas fa-user-friends"></i>
+                        </span>
+                        Hồ sơ người quản lý
+                    </span>
+                    <span class="icon">
+                        <i class="fas fa-greater-than"></i>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+

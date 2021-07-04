@@ -1,0 +1,51 @@
+body {
+    font-family: "Muli", sans-serif;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    background: #F7FAFF;
+    overflow: scroll;
+}
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin_dashboard {
+    display: flex;
+    flex-direction: row;
+}
+table {
+    border-spacing: inherit;
+}
+table td {
+    text-align: center;
+}
+table td, th {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+table tr:first-child {
+    background-color: #F7FAFF;
+}
+table tr:hover {
+    background-color: #F7FAFF;
+}
+table tr td:last-child {
+    display: flex;
+    flex-direction: row;
+}
+/* content */
+.admin_dashboard .content {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+input:focus {
+    outline: none;
+}
+select:focus {
+    outline: none;
+}

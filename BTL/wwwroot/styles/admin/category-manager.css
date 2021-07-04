@@ -1,0 +1,87 @@
+#dm_edit_2 {
+
+}
+.dm_finish_edit {
+    display: none;
+}
+
+/* account_manager*/
+.category_management {
+    padding: 30px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 7px;
+}
+.category_management >div:first-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+    justify-content: space-between;
+}
+.category_management >div:first-child h1 {
+    margin: 0 20px 0 0;
+}
+.category_management >div:first-child .add_category {
+    font-size: 30px;
+    color: #000;
+}
+.category_management >div:first-child .add_category:hover {
+    cursor: pointer;
+}
+.category_management .action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.category_management .action span {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.category_management .action span i {
+    color: #676B84;
+    font-size: 17px;
+}
+.category_management .action span:hover {
+    cursor: pointer;
+}
+.category_management .action span:hover i {
+    color: #1F253A;
+}
+.category_management .category_item_name {
+    width: 45%;
+}
+
+/* modal */
+.category_management #modal_add_category #modal_add_category_layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: none;
+}
+.category_management #modal_add_category #modal_add_category_content {
+    position: fixed;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    min-height: 100px;
+    left: -350px;
+    background-color: #fff;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: left 0.7s, opacity 0.7s;
+}
+.category_management #modal_add_category #modal_add_category_content input {
+    padding: 10px;
+    border-radius: 7px;
+    border: 0.5px solid;
+    font-size: 17px;
+    text-align: center;
+}

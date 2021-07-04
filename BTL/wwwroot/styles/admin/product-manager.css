@@ -1,0 +1,85 @@
+.product_manager {
+    padding: 30px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 7px;
+}
+.product_manager .list_product {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.product_manager .list_product .product_item {
+    width: 200px;
+    display: inline-block;
+    margin: 0 10px 20px 10px;
+}
+.product_manager .list_product .product_item .product_info {
+    /*padding-top: 5px;*/
+}
+.product_manager .list_product .product_item .product_info p {
+    margin: 0 0 3px 0;
+    text-align: center;
+}
+.product_manager .list_product .product_item .product_info .product_name {
+    font-size: 17px;
+}
+.product_manager .list_product .product_item .product_info .product_star i {
+    font-size: 10px;
+    color: #e0cf02;
+}
+.product_manager .list_product .product_item img {
+    box-shadow: 0 0 7px -3px;
+}
+.product_manager .list_product .product_item .product_info .handle_product {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.product_manager .list_product .product_item .product_info {
+    position: relative;
+}
+.product_manager .list_product .product_item .product_info .product_info_content {
+    position: relative;
+    /*z-index: 10;*/
+    background-color: #fff;
+}
+.product_manager .list_product .product_item .product_info .handle_product {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    transition: top 0.5s;
+}
+.product_manager .list_product .product_item:hover {
+    cursor: pointer;
+}
+.product_manager .list_product .product_item:hover .handle_product {
+    top: -70px
+}
+.product_manager .list_product .product_item .product_info .handle_product .icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    /*padding: 10px;*/
+    background-color: #fff;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s;
+    border: none
+}
+.product_manager .list_product .product_item .product_info .handle_product .icon:hover {
+    background-color: #556fd6;
+}
+.product_manager .list_product .product_item .product_info .handle_product .icon i {
+    font-size: 20px;
+    color: #000;
+    transform: rotate(0deg);
+    transition: color 0.5s, transform 0.5s;
+}
+.product_manager .list_product .product_item .product_info .handle_product .icon:hover i {
+    color: #fff;
+    transform: rotate(360deg);
+}

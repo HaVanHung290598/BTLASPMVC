@@ -1,0 +1,31 @@
+/* account_manager*/
+.account_management {
+    padding: 30px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 7px;
+}
+.account_management h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.account_management .action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.account_management .action span {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.account_management .action span i {
+    color: #676B84;
+    font-size: 17px;
+}
+.account_management .action span:hover {
+    cursor: pointer;
+}
+.account_management .action span:hover i {
+    color: #1F253A;
+}

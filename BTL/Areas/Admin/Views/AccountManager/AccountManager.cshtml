@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "AccountManager";
+}
+
+@section loadScript {
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/account-manager.css">
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/draw-detail-user.css">
+}
+
+@section draw {
+    <div id="draw">
+        <div id="draw_layer" onclick="hiddenDraw()"></div>
+        <div id="draw_content">
+            <h1>Chi tiết tài khoản</h1>
+            <form class="draw_form">
+                <div class="part1">
+                    <div>
+                        <div class="input_item">
+                            <label for="ten_tai_khoan">Tên tài khoản: </label>
+                            <input placeholder="Tên tài khoản" type="text" id="ten_tai_khoan">
+                        </div>
+                        <div class="input_item">
+                            <label for="ten_dang_nhap">Tên đăng nhập: </label>
+                            <input placeholder="Tên đăng nhập" type="text" id="ten_dang_nhap">
+                        </div>
+                        <div class="input_item">
+                            <label for="mat_khau_nguoi_dung">Mật khẩu: </label>
+                            <input placeholder="Mật khẩu" type="text" id="mat_khau_nguoi_dung">
+                        </div>
+                    </div>
+                    <div class="input_file">
+                        <label for="avatar_nguoi_dung">
+                            <img id="img_avatar_nguoi_dung" src="~/wwwroot/asset/images/default-avatar.jpg" width="120px" height="120px" />
+                        </label>
+                        <input type="file" id="avatar_nguoi_dung" onchange="handleAvatar(event)">
+                    </div>
+                </div>
+                <div class="part2">
+                    <div class="input_item">
+                        <label for="email_nguoi_dung">Email: </label>
+                        <input placeholder="Email" type="email" id="email_nguoi_dung">
+                    </div>
+                    <div class="input_item">
+                        <label for="sdt_nguoi_dung">Số điện thoại: </label>
+                        <input placeholder="Số điện thoại" type="number" id="sdt_nguoi_dung">
+                    </div>
+                </div>
+                <div class="part3 input_item">
+                    <label for="dia_chi_nguoi_dung">Địa chỉ: </label>
+                    <input placeholder="Địa chỉ" type="text" id="dia_chi_nguoi_dung">
+                </div>
+                <button type="submit" class="button_submit">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+}
+
+<div class="account_management">
+    <h1>Danh mục tài khoản</h1>
+    <table>
+        <tr>
+            <th>STT</th>
+            <th>Tên tài khoản</th>
+            <th>Tên đăng nhập</th>
+            <th>Mật khẩu</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Hà Văn Hưng</td>
+            <td>HungHV</td>
+            <td>123abc</td>
+            <td class="action">
+                <span class="icon" onclick="showDraw()">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Nguyễn Hiển Hảo</td>
+            <td>HaoNH</td>
+            <td>123abc</td>
+            <td class="action">
+                <span class="icon" onclick="showDraw()">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Nguyễn Ngọc Dũng</td>
+            <td>DungNN</td>
+            <td>123abc</td>
+            <td class="action">
+                <span class="icon" onclick="showDraw()">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>

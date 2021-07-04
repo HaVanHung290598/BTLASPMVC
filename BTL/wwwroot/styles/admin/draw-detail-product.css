@@ -1,0 +1,151 @@
+/* draw */
+#draw #draw_layer {
+    background-color: rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 11;
+    /*display: none;*/
+}
+#draw #draw_content {
+    position: fixed;
+    background-color: #fff;
+    bottom: 0;
+    top: 0;
+    /*right: -700px;*/
+    right: 0;
+    width: 700px;
+    transition: right 0.5s;
+    padding: 0;
+    margin: 0;
+    z-index: 12;
+    overflow: scroll;
+}
+#draw #draw_content h1 {
+    margin: 40px 20px 60px 20px;
+}
+#draw #draw_content .draw_form {
+    margin: 20px;
+}
+#draw #draw_content .draw_form .part1 {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+    margin-bottom: 15px;
+}
+#draw #draw_content .draw_form .part1 >div {
+    flex: 1;
+}
+#draw #draw_content .draw_form .part1 .input_file {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+#draw #draw_content .draw_form .part1 .input_file label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#draw #draw_content .draw_form .part1 .input_file >input {
+    display: none;
+}
+#draw #draw_content .draw_form .part1 >div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#draw #draw_content .draw_form .part1 >div:first-child .id_product {
+    margin: 0 0 15px 0;
+}
+#draw #draw_content .draw_form .input_item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+#draw #draw_content .draw_form .input_item label {
+    margin-bottom: 10px;
+}
+#draw #draw_content .draw_form .input_item input {
+    flex: 1;
+}
+#draw #draw_content .draw_form .part1 .part1_1, .part1_2 {
+    display: flex;
+    flex-direction: row;
+}
+#draw #draw_content .draw_form .part1 .part1_1 >div:first-child {
+    margin-right: 10px;
+}
+#draw #draw_content .draw_form .part1 .part1_2 >div:first-child {
+    margin-right: 10px;
+}
+#draw #draw_content .draw_form .part2 {
+    display: flex;
+    flex-direction: row;
+}
+#draw #draw_content .draw_form .part2 >div:first-child {
+    margin-right: 10px;
+}
+#draw #draw_content .draw_form .part2 >div {
+    flex: 1;
+}
+    /*#draw #draw_content .draw_form .part1 >div:first-child {*/
+/*    flex: 1;*/
+/*}*/
+/*#draw #draw_content .draw_form .part2 {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+/*#draw #draw_content .draw_form .part2 >div {*/
+/*    flex: 1;*/
+/*}*/
+/*#draw #draw_content .draw_form .part2 .input_item:first-child {*/
+/*    margin-right: 55px;*/
+/*}*/
+/*#draw #draw_content .draw_form .input_item {*/
+/*    padding: 10px 0;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+/*#draw #draw_content .draw_form .input_item label {*/
+/*    margin-bottom: 7px;*/
+/*}*/
+#draw #draw_content .draw_form .input_item input, select {
+    padding: 15px 10px;
+    border-radius: 5px;
+    /*border: none;*/
+    border: 0.5px #b7b7b7 solid;
+}
+/*#draw #draw_content .draw_form .input_item input:focus {*/
+/*    outline: none;*/
+/*}*/
+/*#draw #draw_content .draw_form .input_file {*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    padding: 0 68px;*/
+/*}*/
+/*#draw #draw_content .draw_form .input_file #img_avatar_nguoi_dung {*/
+/*    border-radius: 100%;*/
+/*}*/
+/*#draw #draw_content .draw_form .input_file label:hover {*/
+/*    cursor: pointer;*/
+/*}*/
+/*#draw #draw_content .draw_form .input_file #avatar_nguoi_dung {*/
+/*    display: none;*/
+/*}*/
+#draw #draw_content .draw_form .button_submit {
+    padding: 20px;
+    border: none;
+    background-color: #556fd6;
+    color: #fff;
+    width: 100%;
+    border-radius: 7px;
+    font-size: 15px;
+    margin-top: 40px;
+}
+#draw #draw_content .draw_form .button_submit:hover {
+    cursor: pointer;
+}
