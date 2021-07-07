@@ -1,0 +1,50 @@
+﻿@model BTL.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaiKhoan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.loaiTaiKhoan1.level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.loaiTaiKhoan1.level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tenDangNhap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenDangNhap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.loaiTaiKhoan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.loaiTaiKhoan)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.maTaiKhoan }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

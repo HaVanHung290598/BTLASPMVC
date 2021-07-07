@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BTL.Models.Donhang>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.hoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soDienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.chuThich)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phuongThucVanChuyen)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.hoTen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diaChi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soDienThoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.chuThich)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phuongThucVanChuyen)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.maDonHang }) |
+            @Html.ActionLink("Details", "Details", new { id=item.maDonHang }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.maDonHang })
+        </td>
+    </tr>
+}
+
+</table>
