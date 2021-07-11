@@ -1846,7 +1846,10 @@
     <Content Include="wwwroot\asset\images\products\VNTAD-717D.jpg" />
     <Content Include="wwwroot\asset\images\products\VNTAN-31N_compressed.jpg" />
     <Content Include="wwwroot\asset\images\products\VNTAN-617D.jpg" />
+    <Content Include="wwwroot\js\admin\account\index.js" />
+    <Content Include="wwwroot\js\admin\category\index.js" />
     <Content Include="wwwroot\js\admin\index.js" />
+    <Content Include="wwwroot\js\admin\product\index.js" />
     <Content Include="wwwroot\styles\admin\account-manager.css" />
     <Content Include="wwwroot\styles\admin\category-manager.css" />
     <Content Include="wwwroot\styles\admin\draw-detail-product.css" />
