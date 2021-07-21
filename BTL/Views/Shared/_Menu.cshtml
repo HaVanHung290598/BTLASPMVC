@@ -1,0 +1,90 @@
+﻿<div class="menu3 container">
+    <div class="d-flex py-4 justify-content-between align-items-center">
+        <div class="flex-row p-0 hover_cate">
+            <a href="" class="active text-uppercase">
+                <i class="fas fa-align-left"></i> Danh mục <i class="fas fa-angle-down"></i>
+            </a>
+            <div class="hover_li">
+                <ul class="m-0 p-0">
+                    <li class="hover_con">
+                        <a href="" class="d-flex justify-content-between align-items-center">
+                            <p class="m-0"><i class="fas fa-dot-circle"></i> Giày da nam</p><i class="fas fa-plus"></i>
+                        </a>
+                        <div class="con_hover">
+                            <p><a @Html.ActionLink("Giày lười nam", "SanPham", "Home")</a></p>
+                            <p><a @Html.ActionLink("Giày lười nữ", "SanPham", "Home")</a></p>
+                            <p><a @Html.ActionLink("Giày lười", "SanPham", "Home")</a></p>
+                        </div>
+                    </li>
+                    <li class="hover_con">
+                        <a href="" class="d-flex justify-content-between align-items-center">
+                            <p class="m-0"><i class="fas fa-dot-circle"></i> Thắt lưng nam</p><i class="fas fa-plus"></i>
+                        </a>
+                        <div class="con_hover">
+                            <p><a href="product.html">Giày lười nam</a></p>
+                            <p><a href="product.html">Giày lười nữ</a></p>
+                            <p><a href="product.html">Giày lười</a></p>
+                        </div>
+                    </li>
+                    <li class="hover_con">
+                        <a href="" class="d-flex justify-content-between align-items-center">
+                            <p class="m-0"><i class="fas fa-dot-circle"></i> Ví da nam</p><i class="fas fa-plus"></i>
+                        </a>
+                        <div class="con_hover">
+                            <p><a href="product.html">Giày lười nam</a></p>
+                            <p><a href="product.html">Giày lười nữ</a></p>
+                            <p><a href="product.html">Giày lười</a></p>
+                        </div>
+                    </li>
+                    <li class="hover_con">
+                        <a href="" class="d-flex justify-content-between align-items-center">
+                            <p class="m-0"><i class="fas fa-dot-circle"></i> Túi xách nam</p><i class="fas fa-plus"></i>
+                        </a>
+                        <div class="con_hover">
+                            <p><a href="product.html">Giày lười nam</a></p>
+                            <p><a href="product.html">Giày lười nữ</a></p>
+                            <p><a href="product.html">Giày lười</a></p>
+                        </div>
+                    </li>
+                    <li class="hover_con">
+                        <a href="" class="d-flex justify-content-between align-items-center">
+                            <p class="m-0"><i class="fas fa-dot-circle"></i> Dây da đồng hồ</p><i class="fas fa-plus"></i>
+                        </a>
+                        <div class="con_hover">
+                            <p><a href="product.html">Giày lười nam</a></p>
+                            <p><a href="product.html">Giày lười nữ</a></p>
+                            <p><a href="product.html">Giày lười</a></p>
+                        </div>
+                    </li>
+                    <li class="hover_con">
+                        <a href="" class="d-flex justify-content-between align-items-center">
+                            <p class="m-0"><i class="fas fa-dot-circle"></i> Phụ kiện da</p><i class="fas fa-plus"></i>
+                        </a>
+                        <div class="con_hover">
+                            <p><a href="product.html">Giày lười nam</a></p>
+                            <p><a href="product.html">Giày lười nữ</a></p>
+                            <p><a href="product.html">Giày lười</a></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "" )">
+            @Html.ActionLink("TRANG CHỦ", "Index", "Home")
+        </li>
+
+        <div class="flex-row">
+            <a href="#" class="text-uppercase">Giới thiệu</a>
+        </div>
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "LienHe" ? "active" : "" )">
+            @Html.ActionLink("LIÊN HỆ", "LienHe", "Home")
+        </li>
+        <div class="flex-row">
+            <a href="" class="text-uppercase">Tin tức</a>
+        </div>
+        <div class="flex-row">
+            <input type="search" placeholder="Search" class="form-control">
+        </div>
+    </div>
+
+</div>

@@ -13,17 +13,29 @@ namespace BTL.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult SanPham()
         {
-            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+        public ActionResult SanPhamChiTiet()
+        {
+
+            return View();
+        }
+        public ActionResult LienHe()
+        {
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult DangNhap()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        public ActionResult GioHang()
+        {
             return View();
         }
     }
