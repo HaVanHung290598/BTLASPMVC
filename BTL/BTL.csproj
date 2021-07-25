@@ -1846,6 +1846,7 @@
     <Content Include="wwwroot\asset\images\products\VNTAD-717D.jpg" />
     <Content Include="wwwroot\asset\images\products\VNTAN-31N_compressed.jpg" />
     <Content Include="wwwroot\asset\images\products\VNTAN-617D.jpg" />
+    <Content Include="wwwroot\asset\images\product-default.jpg" />
     <Content Include="wwwroot\js\admin\account\index.js" />
     <Content Include="wwwroot\js\admin\category\index.js" />
     <Content Include="wwwroot\js\admin\index.js" />

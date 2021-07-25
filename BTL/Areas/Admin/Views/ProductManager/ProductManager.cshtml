@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<BTL.Models.SanPham>
 @{
     ViewBag.Title = "ProductManager";
 }
@@ -14,32 +14,35 @@
         <div id="draw_layer" onclick="hiddenDraw()"></div>
         <div id="draw_content">
             <h1>Chi tiết sản phẩm</h1>
-            <form class="draw_form">
+            @using (Html.BeginForm("Create", "ProductManager", FormMethod.Post, new { enctype = "multipart/form-data", @class = "draw_form" }))
+            {
+                @Html.AntiForgeryToken()
                 <div class="part1">
                     <div>
                         <p class="id_product" id="ma_san_pham">Mã sản phẩm: sp1001</p>
+                        <input name="maSanPham" id="ma_san_pham_input" style="display: none" />
                         <div class="input_item">
                             <label for="ten_san_pham">Tên sản phẩm: </label>
-                            <input placeholder="Tên sản phẩm" type="text" id="ten_san_pham">
+                            <input placeholder="Tên sản phẩm" type="text" id="ten_san_pham" name="tenSanPham" />
                         </div>
                         <div class="part1_1">
                             <div class="input_item">
                                 <label for="gia_san_pham">Giá sản phẩm: </label>
-                                <input placeholder="Giá sản phẩm" type="number" id="gia_san_pham">
+                                <input placeholder="Giá sản phẩm" type="number" id="gia_san_pham" name="gia" />
                             </div>
                             <div class="input_item">
                                 <label for="chat_lieu_san_pham">Chất liệu sản phẩm: </label>
-                                <input placeholder="Chất liệu sản phẩm" type="text" id="chat_lieu_san_pham">
+                                <input placeholder="Chất liệu sản phẩm" type="text" id="chat_lieu_san_pham" name="chatLieu" />
                             </div>
                         </div>
                         <div class="part1_2 part1_1">
                             <div class="input_item">
                                 <label for="kieu_dang_san_pham">Kiểu dáng: </label>
-                                <input placeholder="Kiểu dáng" type="text" id="kieu_dang_san_pham">
+                                <input placeholder="Kiểu dáng" type="text" id="kieu_dang_san_pham" name="kieuDang" />
                             </div>
                             <div class="input_item">
                                 <label for="thiet_ke_san_pham">Thiết kế: </label>
-                                <input placeholder="Thiết kế" type="text" id="thiet_ke_san_pham">
+                                <input placeholder="Thiết kế" type="text" id="thiet_ke_san_pham" name="thietKe" />
                             </div>
                         </div>
                     </div>
@@ -47,27 +50,28 @@
                         <label for="avatar_nguoi_dung">
                             <img id="img_avatar_nguoi_dung" src="~/wwwroot/asset/images/products/giay-buoc-day-cong-so-gnta5502-d..jpg" width="240px" height="300px" />
                         </label>
-                        <input type="file" id="avatar_nguoi_dung" onchange="handleAvatar(event)">
+                        <input type="file" id="avatar_nguoi_dung" onchange="handleAvatar(event)" name="ImageFile" />
+                        <input name="anh" id="product_img" style="display: none" />
                     </div>
                 </div>
                 <div class="part2">
                     <div class="input_item">
                         <label for="thuong_hieu_san_pham">Thương hiệu: </label>
-                        <input placeholder="Thương hiệu" type="text" id="thuong_hieu_san_pham">
+                        <input placeholder="Thương hiệu" type="text" id="thuong_hieu_san_pham" name="thuongHieu" />
                     </div>
                     <div class="input_item">
                         <label for="mau_sac_san_pham">Màu sắc: </label>
-                        <input placeholder="Màu sắc" type="text" id="mau_sac_san_pham">
+                        <input placeholder="Màu sắc" type="text" id="mau_sac_san_pham" name="mauSac" />
                     </div>
                 </div>
                 <div class="part3 part2">
                     <div class="input_item">
                         <label for="kich_thuoc_san_pham">Kích thước: </label>
-                        <input placeholder="Kích thước" type="text" id="kich_thuoc_san_pham">
+                        <input placeholder="Kích thước" type="text" id="kich_thuoc_san_pham" name="kichThuoc" />
                     </div>
                     <div class="input_item">
                         <label for="danh_muc_san_pham">Danh mục</label>
-                        <select id="danh_muc_san_pham">
+                        <select id="danh_muc_san_pham" name="maDanhMuc">
                             <option value="Giày da nam">Giày da nam</option>
                             <option value="Thắt lưng nam">Thắt lưng nam</option>
                             <option value="Ví da nam">Ví da nam</option>
@@ -79,85 +83,45 @@
                     </div>
                 </div>
                 <button type="submit" class="button_submit">Lưu thay đổi</button>
-            </form>
+            }
         </div>
     </div>
 }
 
 <div class="product_manager">
-    <h1>Danh sách sản phẩm</h1>
+    <div style="display: flex; margin-bottom: 20px">
+        <h1>Danh sách sản phẩm</h1>
+        <span class="icon" onclick="showDraw()" title="Thêm sản phẩm" style="margin-left: 30px; cursor: pointer">
+            <i class="fas fa-plus-square" style="font-size: 30px"></i>
+        </span>
+    </div>
     <div class="list_product" id="list_product">
-        <div class="product_item">
-            <img src="~/wwwroot/asset/images/products/giay-nam-buoc-day-da-tron-gnta1901-d..jpg" width="200px" height="270px" />
-            <div class="product_info">
-                <div class="handle_product">
-                    <span class="icon" onclick="showDraw(2)">
-                        <i class="fas fa-edit"></i>
-                    </span>
-                    <span class="icon">
-                        <i class="fas fa-trash-alt"></i>
-                    </span>
-                </div>
-                <div class="product_info_content">
-                    <p class="product_name">Dây lưng da</p>
-                    <p class="product_star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </p>
-                    <p class="product_price">150.000 VNĐ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product_item">
-            <img src="~/wwwroot/asset/images/products/giay-nam-buoc-day-da-tron-gnta1901-d..jpg" width="200px" height="270px" />
-            <div class="product_info">
-                <div class="handle_product">
-                    <span class="icon" onclick="showDraw(3)">
-                        <i class="fas fa-edit"></i>
-                    </span>
-                    <span class="icon">
-                        <i class="fas fa-trash-alt"></i>
-                    </span>
-                </div>
-                <div class="product_info_content">
-                    <p class="product_name">Dây lưng da</p>
-                    <p class="product_star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </p>
-                    <p class="product_price">150.000 VNĐ</p>
+        @foreach (var item in Model)
+        {
+            <div class="product_item">
+                <img src="~/wwwroot/asset/images/products/@item.anh" width="200px" height="270px" />
+                <div class="product_info">
+                    <div class="handle_product">
+                        <span class="icon" onclick="showDraw(@item.maSanPham)">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <span class="icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </div>
+                    <div class="product_info_content">
+                        <p class="product_name">@item.tenSanPham</p>
+                        <p class="product_star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </p>
+                        <p class="product_price">@item.gia VNĐ</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="product_item">
-            <img src="~/wwwroot/asset/images/products/giay-nam-buoc-day-da-tron-gnta1901-d..jpg" width="200px" height="270px" />
-            <div class="product_info">
-                <div class="handle_product">
-                    <span class="icon" onclick="showDraw(2)">
-                        <i class="fas fa-edit"></i>
-                    </span>
-                    <span class="icon">
-                        <i class="fas fa-trash-alt"></i>
-                    </span>
-                </div>
-                <div class="product_info_content">
-                    <p class="product_name">Dây lưng da</p>
-                    <p class="product_star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </p>
-                    <p class="product_price">150.000 VNĐ</p>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
