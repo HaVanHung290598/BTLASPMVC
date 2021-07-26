@@ -14,7 +14,7 @@
         <div id="draw_layer" onclick="hiddenDraw()"></div>
         <div id="draw_content">
             <h1>Chi tiết sản phẩm</h1>
-            @using (Html.BeginForm("Create", "ProductManager", FormMethod.Post, new { enctype = "multipart/form-data", @class = "draw_form" }))
+            @using (Html.BeginForm("Create", "ProductManager", FormMethod.Post, new { enctype = "multipart/form-data", @class = "draw_form", @id = "draw_form" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="part1">
@@ -72,13 +72,10 @@
                     <div class="input_item">
                         <label for="danh_muc_san_pham">Danh mục</label>
                         <select id="danh_muc_san_pham" name="maDanhMuc">
-                            <option value="Giày da nam">Giày da nam</option>
-                            <option value="Thắt lưng nam">Thắt lưng nam</option>
-                            <option value="Ví da nam">Ví da nam</option>
-                            <option value="Túi xách nam">Túi xách nam</option>
-                            <option value="Găng tay da">Găng tay da</option>
-                            <option value="Ví da nam">Ví da nam</option>
-                            <option value="Dây da đồng hồ">Dây da đồng hồ</option>
+                            @foreach (var item in ViewBag.Categorys)
+                            {
+                                <option value="@item.maDanhMuc">@item.tenDanhMuc</option>
+                            }
                         </select>
                     </div>
                 </div>

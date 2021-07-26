@@ -1,6 +1,5 @@
-﻿function showProductDetail(product, category) {
+﻿function showProductDetail(product) {
     const { anh, chatLieu, gia, kichThuoc, kieuDang, maDanhMuc, maSanPham, mauSac, moTa, tenSanPham, thietKe, thuongHieu, danhMuc } = product;
-    const { tenDanhMuc } = category;
     document.getElementById("ma_san_pham").innerHTML = `Mã sản phẩm: ${maSanPham}`;
     document.getElementById("ma_san_pham_input").value = maSanPham;
     document.getElementById("ten_san_pham").value = tenSanPham;
@@ -11,7 +10,7 @@
     document.getElementById("thuong_hieu_san_pham").value = thuongHieu;
     document.getElementById("mau_sac_san_pham").value = mauSac;
     document.getElementById("kich_thuoc_san_pham").value = kichThuoc;
-    document.getElementById("danh_muc_san_pham").value = tenDanhMuc;
+    document.getElementById("danh_muc_san_pham").value = maDanhMuc;
     document.getElementById("product_img").value = anh;
     const img = document.getElementById("img_avatar_nguoi_dung");
     img.src = `/wwwroot/asset/images/products/${anh}`;
@@ -34,16 +33,18 @@ function clearContentDraw() {
 
 // sau việc handle showDraw sẽ call api lấy dữ liệu chi tiết để vẽ giao diện
 function showDraw(id) {
+    const form = document.getElementById("draw_form");
     const showDrawContent = () => {
         const draw = document.getElementById('draw_content');
         const drawLayer = document.getElementById('draw_layer');
         draw.style.right = "0";
         drawLayer.style.display = "block";
     }
-    if (id) {
+    if (id !== undefined) {
+        form.action = "/Admin/ProductManager/Edit";
         const showContent = (response) => {
             showDrawContent();
-            showProductDetail(response.sanPham, response.danhMuc);
+            showProductDetail(response.sanPham);
         };
 
         $.ajax({
@@ -54,6 +55,7 @@ function showDraw(id) {
             success: showContent
         });
     } else {
+        form.action = "/Admin/ProductManager/Create";
         clearContentDraw();
         showDrawContent();
     }

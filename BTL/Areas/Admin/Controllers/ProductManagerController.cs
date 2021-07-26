@@ -18,6 +18,7 @@ namespace BTL.Areas.Admin.Controllers
         // GET: Admin/ProductManager
         public ActionResult ProductManager()
         {
+            ViewBag.Categorys = db.DanhMucs.ToList();
             return View(db.SanPhams.ToList());
         }
 
@@ -41,7 +42,6 @@ namespace BTL.Areas.Admin.Controllers
         public ActionResult Create([Bind(Include = "maSanPham,tenSanPham,gia,moTa,anh,chatLieu,kieuDang,thietKe,thuongHieu,mauSac,kichThuoc,maDanhMuc")] SanPham sanPham)
         {
             sanPham.maSanPham = db.SanPhams.ToList().Count() + 1;
-            sanPham.maDanhMuc = 1;
             sanPham.anh = "";
             var f = Request.Files["ImageFile"];
             if (f != null && f.ContentLength > 0)
