@@ -3,218 +3,51 @@
     ViewBag.Title = "SanPham";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<body>
-    <div class="container-fluid">
-
+@model IEnumerable<BTL.Models.SanPham>
+<div class="container-fluid">
+    @foreach (var item in Model)
+    {
         <div class="bg-light p-3">
             <div class="container">
-                Trang chủ <i class="fas fa-chevron-right text-color"></i> Giày da nam <i class="fas fa-chevron-right text-color"></i> Giày lười nam
+                Trang chủ <i class="fas fa-chevron-right text-color"></i> @Html.DisplayFor(modelItem => item.DanhMuc.tenDanhMuc)
             </div>
         </div>
         <div class="product_header container my-4">
-            <h3 class="text-uppercase">Giày lười nam</h3>
+            <h3 class="text-uppercase"> @Html.DisplayFor(modelItem => item.DanhMuc.tenDanhMuc)</h3>
             <div class="d-flex align-items-center justify-content-between py-4 border-top border-bottom">
-                <p class="m-0">Showing 1–24 of 35 results</p>
+                <p class="m-0">Showing 1–18 of @Model.Count() results</p>
                 <div class="">
                     <select class="form-select">
-                        <option selected>Thứ tự mặc định</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="" disabled selected>Sắp xếp</option>
+                        <option value="0">Giá từ thấp đến cao</option>
+                        <option value="1">Giá từ cao đến thấp</option>
                     </select>
                 </div>
             </div>
         </div>
+        break;
+    }
         <div class="product container">
             <div class="row">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <a href="@Url.Action("SanPhamChiTiet", "Home",new { id=item.maSanPham})">
+                            <div class="product_item">
+                                <div class="product_img">
+                                    @{
+                                        string ImagePath = "~/wwwroot/Images/" + item.anh;
+                                    }
+                                    <img class="w-100" src="@Url.Content(ImagePath)" alt="">
+                                </div>
+                                <div class="product_price text-center m-0 mt-3">
+                                    <p class="text-uppercase text-color">@Html.DisplayFor(modelItem => item.gia)</p>
+                                </div>
+                                <p class="px-3 pb-4 m-0">@Html.DisplayFor(modelItem => item.tenSanPham)</p>
                             </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a href="@Url.Action("SanPhamChiTiet", "Home")">
-                        <div class="product_item">
-                            <div class="product_img">
-                                <img class="w-100"
-                                     src="https://tamanh.net/wp-content/uploads/2020/05/giay-da-bo-nam-dep-quai-da-ngang-tinh-te-gnta2816-d..jpg"
-                                     alt="">
-                            </div>
-                            <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">790.000 đ</p>
-                            </div>
-                            <p class="px-3 pb-4 m-0">Giày da bò nam quai da ngang GNTA2816-D</p>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-            <div class="review my-5">
-                <h3 class="text-center text-color">REVIEWS</h3>
-                <div class="row container">
-
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <div class="p-4 text-center">
-                            <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                        </div>
-                        <div class="text-center">
-                            <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                            <p>Nhân viên văn phòng</p>
-                        </div>
-                        <p class="text-justify">
-                            Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                        </p>
-                        <p class="text-center">
-                            2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                        </p>
+                        </a>
                     </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <div class="p-4 text-center">
-                            <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                        </div>
-                        <div class="text-center">
-                            <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                            <p>Nhân viên văn phòng</p>
-                        </div>
-                        <p class="text-justify">
-                            Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                        </p>
-                        <p class="text-center">
-                            2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <div class="p-4 text-center">
-                            <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                        </div>
-                        <div class="text-center">
-                            <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                            <p>Nhân viên văn phòng</p>
-                        </div>
-                        <p class="text-justify">
-                            Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                        </p>
-                        <p class="text-center">
-                            2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                            <i class="fas fa-star text-color"></i>
-                        </p>
-                    </div>
-
-
-                </div>
+                }
             </div>
             <div class="my-5 mx-auto d-flex justify-content-around">
                 <ul class="pagination">

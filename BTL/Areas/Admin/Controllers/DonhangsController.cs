@@ -12,7 +12,7 @@ namespace BTL.Areas.Admin.Controllers
 {
     public class DonhangsController : Controller
     {
-        private DoDaStoreDB db = new DoDaStoreDB();
+        private QLDoDa db = new QLDoDa();
 
         // GET: Admin/Donhangs
         public ActionResult Index()

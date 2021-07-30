@@ -9,6 +9,12 @@ namespace BTL.Models
     [Table("Donhang")]
     public partial class Donhang
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Donhang()
+        {
+            Chitietdonhangs = new HashSet<Chitietdonhang>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int maDonHang { get; set; }
@@ -35,5 +41,8 @@ namespace BTL.Models
         [Required]
         [StringLength(100)]
         public string phuongThucVanChuyen { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Chitietdonhang> Chitietdonhangs { get; set; }
     }
 }

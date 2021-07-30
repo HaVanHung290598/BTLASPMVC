@@ -3,11 +3,7 @@
     ViewBag.Title = "GioHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html lang="en">
-
-<body>
+@model IEnumerable<BTL.Models.Donhang>
     <div class="container-fluid">
         <!--header bố cục trang -->
         <div class="container">
@@ -172,59 +168,6 @@
 
         </div>
     </div>
-    <!--footer bố cục trang -->
-    <div class="footer-widget">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    <div class="single-widget">
-                        <h2>Dịch vụ</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Điều khoản và dịch vụ</a></li>
-                            <li><a href="#">Hướng dẫn mua hàng</a></li>
-                            <li><a href="#">Thông tin chuyển khoản</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="single-widget">
-                        <h2>Chính sách</h2>
-                        <ul class="p-0">
-                            <li><a href="#">Chính sách vận chuyển</a></li>
-                            <li><a href="#">Chính sách đổi trả</a></li>
-                            <li><a href="#">Chính sách bảo hành sản phẩm</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="single-widget">
-                        <h2>Đăng kí Email</h2>
-                        <form action="#" class="searchform">
-                            <input type="text" class="form-control my-3" placeholder="Vui lòng điền Email " />
-                            <p>Để nhận những thông tin khuyến mãi <br /></p>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <p class="pull-left">Copyright © 2021 Tam Anh-SHOPPER Inc. All rights reserved.</p>
-                <p class="pull-right">
-                    Designed by <span>
-                        <a target="_blank"
-                           href="http://www.themeum.com">Themeum</a>
-                    </span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <!--footer bố cục trang -->
     </div>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
