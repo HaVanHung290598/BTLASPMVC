@@ -48,6 +48,11 @@ namespace BTL.Controllers
             return View();
         }
 
+        public ActionResult TinTuc()
+        {
+            return View();
+        }
+
         public ActionResult TaiKhoan()
         {
             return View();

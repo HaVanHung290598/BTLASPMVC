@@ -30,9 +30,9 @@
         <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "LienHe" ? "active" : "" )">
             @Html.ActionLink("LIÊN HỆ", "LienHe", "Home")
         </li>
-        <div class="flex-row">
-            <a href="" class="text-uppercase">Tin tức</a>
-        </div>
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "TinTuc" ? "active" : "" )">
+            @Html.ActionLink("TIN TỨC", "TinTuc", "Home")
+        </li>
        
     </div>
 
