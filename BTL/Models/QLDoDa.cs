@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace BTL.Models
 {
-    public partial class DoDaStoreDB : DbContext
+    public partial class QLDoDa : DbContext
     {
-        public DoDaStoreDB()
-            : base("name=DoDaStoreDB")
+        public QLDoDa()
+            : base("name=QLDoDa")
         {
         }
 
@@ -29,6 +29,11 @@ namespace BTL.Models
                 .Property(e => e.kichThuoc)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<DanhMuc>()
+                .HasMany(e => e.SanPhams)
+                .WithRequired(e => e.DanhMuc)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Donhang>()
                 .Property(e => e.soDienThoai)
                 .IsUnicode(false);
@@ -36,6 +41,11 @@ namespace BTL.Models
             modelBuilder.Entity<Donhang>()
                 .Property(e => e.email)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Donhang>()
+                .HasMany(e => e.Chitietdonhangs)
+                .WithRequired(e => e.Donhang)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<loaiTaiKhoan>()
                 .Property(e => e.level)
@@ -53,6 +63,11 @@ namespace BTL.Models
             modelBuilder.Entity<SanPham>()
                 .Property(e => e.kichThuoc)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<SanPham>()
+                .HasMany(e => e.Chitietdonhangs)
+                .WithRequired(e => e.SanPham)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.tenDangNhap)

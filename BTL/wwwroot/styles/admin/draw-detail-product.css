@@ -7,15 +7,15 @@
     left: 0;
     right: 0;
     z-index: 11;
-    display: none;
+    /*display: none;*/
 }
 #draw #draw_content {
     position: fixed;
     background-color: #fff;
     bottom: 0;
     top: 0;
-    right: -700px;
-    /*right: 0;*/
+    /*right: -700px;*/
+    right: 0;
     width: 700px;
     transition: right 0.5s;
     padding: 0;

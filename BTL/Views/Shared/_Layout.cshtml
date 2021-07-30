@@ -24,13 +24,79 @@
         }
         <!--menu-->
         @{
-            Html.RenderPartial("_Menu");
+            Html.RenderAction("_Menu", "Home");
         }
         <!--menu-->
         <!--header bố cục trang -->
         @RenderBody()
 
         <!--footer bố cục trang -->
+
+        <div class="review my-5">
+            <h3 class="text-center text-color">REVIEWS</h3>
+            <div class="row container">
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="p-4 text-center">
+                        <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
+                    </div>
+                    <div class="text-center">
+                        <h5>HÀ VĂN HƯNG</h5>
+                        <p>Nhân viên văn phòng</p>
+                    </div>
+                    <p class="text-justify">
+                        Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
+                    </p>
+                    <p class="text-center">
+                        2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                    </p>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="p-4 text-center">
+                        <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/05/TA-Review-ha-viet-dung-min.png" alt="">
+                    </div>
+                    <div class="text-center">
+                        <h5>NGUYỄN VĂN QUÂN</h5>
+                        <p>Diễn viên, người mẫu</p>
+                    </div>
+                    <p class="text-justify">
+                        Mình đặt giày để đi dự sự kiện, vừa đặt hàng đã có nhân viên gọi xác nhận và ship ngay trong ngày hôm sau. Phải nói là tác phong cực kì chuyên nghiệp. Thật sự mình khá bất ngờ. Về giày thì thiết kế đẹp, mình đi thấy khá êm chân và thoải mái khiến mình tự tin hơn khi diện đi sự kiện lớn. Lần sau mình vẫn sẽ tin tưởng và mua hàng tại Tâm Anh.
+                    </p>
+                    <p class="text-center">
+                        2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                    </p>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="p-4 text-center">
+                        <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/05/TA-Review-quang-tam-min.png" alt="">
+                    </div>
+                    <div class="text-center">
+                        <h5>NGUYỄN NGỌC DŨNG</h5>
+                        <p>MC VTV</p>
+                    </div>
+                    <p class="text-justify">
+                        Do tính chất công việc làm MC nên mình thường xuyên phải mặc vest và khá kĩ tính trong việc lựa chọn phụ kiện đi kèm như giày hay thắt lưng. Tuy nhiên mình thật sự bị chinh phục bởi sản phẩm của Tâm Anh với thiết đúng chuẩn lịch lãm và phù hợp với người ở công sở như mình. Là thương hiệu Việt nhưng chất lượng sản phẩm thực sự rất tuyệt vời, vừa bền vừa đẹp, không hề thua kém bất kỳ thương hiệu quốc tế nào.
+                    </p>
+                    <p class="text-center">
+                        2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                        <i class="fas fa-star text-color"></i>
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
 
         <div class="footer-widget">
             <div class="container">
@@ -74,7 +140,7 @@
             <div class="container">
                 <div class="row">
                     <p class="pull-left">Copyright © 2021 Tam Anh-SHOPPER Inc. All rights reserved.</p>
-                    <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+                    <p class="pull-right">Designed by <span><a target="_blank" href="#">Nhóm 7</a></span></p>
                 </div>
             </div>
         </div>
@@ -82,6 +148,6 @@
     </div>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
-    <script src="~/wwwroot//js/swiper.js"></script>
+    <script src="~/wwwroot/User/js/swiper.js"></script>
 </body>
 </html>

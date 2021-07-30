@@ -27,5 +27,9 @@ namespace BTL.Models
         [Required]
         [StringLength(30)]
         public string kichThuoc { get; set; }
+
+        public virtual Donhang Donhang { get; set; }
+
+        public virtual SanPham SanPham { get; set; }
     }
 }

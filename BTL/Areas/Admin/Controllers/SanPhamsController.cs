@@ -12,7 +12,7 @@ namespace BTL.Areas.Admin.Controllers
 {
     public class SanPhamsController : Controller
     {
-        private DoDaStoreDB db = new DoDaStoreDB();
+        private QLDoDa db = new QLDoDa();
 
         // GET: Admin/SanPhams
         public ActionResult Index()
