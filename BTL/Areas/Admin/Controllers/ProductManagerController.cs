@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Net;
 using BTL.Models;
 using System.IO;
+using PagedList;
 
 namespace BTL.Areas.Admin.Controllers
 {
@@ -16,10 +17,65 @@ namespace BTL.Areas.Admin.Controllers
         private DoDaStoreDB db = new DoDaStoreDB();
 
         // GET: Admin/ProductManager
-        public ActionResult ProductManager()
+        public ActionResult ProductManager(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.SortWithName = String.IsNullOrEmpty(sortOrder) ?
+                "" 
+                : sortOrder == "name_desc" ?
+                    "name_desc" 
+                    : sortOrder == "name" ?
+                        "name"
+                        : "";
+            ViewBag.SortWithPrice = String.IsNullOrEmpty(sortOrder) ?
+                "" 
+                : sortOrder == "price_desc" ?
+                    "price_desc"
+                    : sortOrder == "price" ?
+                        "price"
+                        : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            // Mặc đinh lấy all sản phẩm và lấy từ mới => cũ
+            var products = db.SanPhams.Select(s => s).OrderByDescending(s => s.maSanPham);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = (IOrderedQueryable<SanPham>)products.Where(s => s.tenSanPham.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.tenSanPham);
+                    break;
+                case "name":
+                    products = products.OrderBy(s => s.tenSanPham);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.gia);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.gia);
+                    break;
+                default:
+                    break;
+            }
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+
             ViewBag.Categorys = db.DanhMucs.ToList();
-            return View(db.SanPhams.ToList());
+            return View(products.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: /Admin/ProductManager/Details
@@ -87,6 +143,17 @@ namespace BTL.Areas.Admin.Controllers
                 }
                 
             }
+            return RedirectToAction("ProductManager");
+        }
+
+        // POST: Hangs/Delete/5
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int? id)
+        {
+            SanPham product = db.SanPhams.Find(id);
+            db.SanPhams.Remove(product);
+            db.SaveChanges();
             return RedirectToAction("ProductManager");
         }
     }

@@ -7,6 +7,10 @@
 }
 .product_manager .list_product {
     display: flex;
+    flex-direction: column
+}
+.product_manager .list_product >div:first-child {
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }

@@ -326,3 +326,7 @@ D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\obj\Debug\BTL.csproj.CoreCompileInputs.cac
 D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\obj\Debug\BTL.csproj.CopyComplete
 D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\obj\Debug\BTL.dll
 D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\obj\Debug\BTL.pdb
+D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\bin\PagedList.dll
+D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\bin\PagedList.Mvc.dll
+D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\bin\PagedList.xml
+D:\Data\VSCode\BTL_Ver4\BTLASPMVC\BTL\bin\PagedList.Mvc.xml

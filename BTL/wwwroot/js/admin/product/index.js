@@ -76,6 +76,15 @@ function handleAvatar(e) {
     img.src = window.webkitURL.createObjectURL(files[0]);
 }
 
+function deleteProduct(id) {
+    if (confirm('Bạn có chắc muốn xóa sản phẩm?')) {
+        $.ajax({
+            url: `/Admin/ProductManager/Delete?id=${id}`,
+            type: "DELETE",
+        });
+    }
+}
+
 function createProductHTML() {
     const productItem = document.createElement('div');
     productItem.className = "product_item";

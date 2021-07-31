@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BTL.Models.SanPham>
+﻿@model PagedList.IPagedList<BTL.Models.SanPham>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "ProductManager";
 }
@@ -87,38 +88,88 @@
 
 <div class="product_manager">
     <div style="display: flex; margin-bottom: 20px">
-        <h1>Danh sách sản phẩm</h1>
-        <span class="icon" onclick="showDraw()" title="Thêm sản phẩm" style="margin-left: 30px; cursor: pointer">
-            <i class="fas fa-plus-square" style="font-size: 30px"></i>
-        </span>
+        <div style="display: flex; align-items: center">
+            <h1>Danh sách sản phẩm</h1>
+            <span class="icon" onclick="showDraw()" title="Thêm sản phẩm" style="margin-left: 30px; cursor: pointer">
+                <i class="fas fa-plus-square" style="font-size: 30px"></i>
+            </span>
+        </div>
+        <div style="display: flex; align-items: center; margin-left: 50px; flex: 1; justify-content: center">
+            @using (Html.BeginForm())
+            {
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Tìm kiếm theo tên", @style = "padding: 6px 15px; min-height: 25px; min-width: 250px"})
+                <input type="submit" value="Tìm kiếm" style="min-height: 41px; background-color: #fff; border: 0.5px solid; cursor: pointer" />
+            }
+            <p style="margin-left: 30px">
+                Sắp xếp theo
+            </p>
+            <p style="margin-left: 10px">
+                @Html.ActionLink(
+                    "Tên hàng",
+                    "ProductManager",
+                    new
+                         {
+                        sortOrder = ViewBag.SortWithName == "" ?
+                            "name_desc" :
+                            ViewBag.SortWithName == "name_desc" ?
+                                "name"
+                                : ""
+                        ,
+                             currentFilter = ViewBag.CurrentFilter
+                    })
+                @(ViewBag.SortWithName == "" ? "" : ViewBag.SortWithName == "name_desc" ? ": Z -> A" : ": A -> Z")
+            </p>
+            <p style="margin-left: 10px">
+                @Html.ActionLink(
+                    "Giá",
+                    "ProductManager",
+                    new
+                         {
+                        sortOrder = ViewBag.SortWithPrice == "" ?
+                            "price_desc"
+                            : ViewBag.SortWithPrice == "price_desc" ?
+                                "price"
+                                : ""
+                        ,
+                             currentFilter = ViewBag.CurrentFilter
+                    })
+                @(ViewBag.SortWithPrice == "" ? "" : ViewBag.SortWithPrice == "price_desc" ? ": Giảm dần" : ": Tăng dần")
+            </p>
+        </div>
     </div>
     <div class="list_product" id="list_product">
-        @foreach (var item in Model)
-        {
-            <div class="product_item">
-                <img src="~/wwwroot/asset/images/products/@item.anh" width="200px" height="270px" />
-                <div class="product_info">
-                    <div class="handle_product">
-                        <span class="icon" onclick="showDraw(@item.maSanPham)">
-                            <i class="fas fa-edit"></i>
-                        </span>
-                        <span class="icon">
-                            <i class="fas fa-trash-alt"></i>
-                        </span>
-                    </div>
-                    <div class="product_info_content">
-                        <p class="product_name">@item.tenSanPham</p>
-                        <p class="product_star">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </p>
-                        <p class="product_price">@item.gia VNĐ</p>
+        <div>
+            @foreach (var item in Model)
+            {
+                <div class="product_item">
+                    <img src="~/wwwroot/asset/images/products/@item.anh" width="200px" height="270px" />
+                    <div class="product_info">
+                        <div class="handle_product">
+                            <span class="icon" onclick="showDraw(@item.maSanPham)">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span class="icon" onclick="deleteProduct(@item.maSanPham)">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </div>
+                        <div class="product_info_content">
+                            <p class="product_name">@item.tenSanPham</p>
+                            <p class="product_star">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </p>
+                            <p class="product_price">@item.gia VNĐ</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        <div>
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("ProductManager", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
     </div>
 </div>
