@@ -12,7 +12,7 @@ namespace BTL.Areas.Admin.Controllers
 {
     public class DanhMucsController : Controller
     {
-        private DoDaStoreDB db = new DoDaStoreDB();
+        private QLDoDa db = new QLDoDa();
 
         // GET: Admin/DanhMucs
         public ActionResult Index()

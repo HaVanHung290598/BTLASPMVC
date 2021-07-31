@@ -8,180 +8,71 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Đăng nhập | Đăng kí</title>
-
-    <link href="~/wwwroot/User/css/animate.css" rel="stylesheet">
-    <link href="~/wwwroot/User/css/main.css" rel="stylesheet">
-    <link href="~/wwwroot/User/css/responsive.css" rel="stylesheet">
-    <script src="~/wwwroot/User/js/html5shiv.js"></script>
-    <script src="~/wwwroot/User/js/respond.min.js"></script>
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/wwwroot/User/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/wwwroot/Userimages/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/wwwroot/User/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="~/wwwroot/User/images/ico/apple-touch-icon-57-precomposed.png">
-
-
-
-
+    <link rel="stylesheet" href="~/wwwroot/User/css/login.css" />
 </head><!--/head-->
 
 <body>
     <!--header bố cục trang -->
+    <div class="login-wrap" style="margin-top: 30px">
+        <div class="login-html" style="background-color: burlywood">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label style="font-weight: bolder" for="tab-1" class="tab">ĐĂNG NHẬP</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label style="font-weight: bolder" for="tab-2" class="tab">ĐĂNG KÝ</label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="user" style="color: black; font-weight: bold" class="label">Tên đăng nhập</label>
+                        <input id="user" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="pass" style="color: black; font-weight: bold" class="label">Mật khẩu</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <input id="check"  type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Giữ đăng nhập lần sau</label>
+                    </div>
+                    <div class="group">
+                        <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="button" value="Đăng nhập">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">Quên mật khẩu?</a>
+                    </div>
+                </div>
+                <div class="sign-up-htm">
+                    <div class="group">
+                        <label style="color: black; font-weight: bold" for="user" class="label">Tên đăng nhập</label>
+                        <input id="user" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label style="color: black; font-weight: bold" for="pass" class="label">Mật khẩu</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label style="color: black; font-weight: bold" for="pass" class="label">Nhập lại mật khẩu</label>
+                        <input id="pass" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label style="color: black; font-weight: bold" for="pass" class="label">Địa chỉ email</label>
+                        <input id="pass" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="button" value="Đăng ký">
+                    </div>
+                    <div class="hr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+
     <!--header bố cục trang -->
 
-    <section id="form">
-        <!--form-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-1">
-                    <div class="login-form">
-                        <!--login form-->
-                        <h2>Đăng nhập</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Tên đăng nhập" />
-                            <input type="password" placeholder="Mật khẩu" />
-                            <span>
-                                <input type="checkbox" class="checkbox">
-                                Lưu tài khoản
-                            </span>
-                            <button type="submit" class="btn btn-default">Đăng nhập</button>
-                        </form>
-                    </div><!--/login form-->
-                </div>
-                <div class="col-sm-1">
-                    <h2 class="or">OR</h2>
-                </div>
-                <div class="col-sm-4">
-                    <div class="signup-form">
-                        <!--sign up form-->
-                        <h2>Đăng kí</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Tên đăng nhập" />
-                            <input type="email" placeholder="Địa chỉ email" />
-                            <input type="password" placeholder="Mật khẩu" />
-                            <input type="password" placeholder="Nhập lại mật khẩu" />
-                            <button type="submit" class="btn btn-default">Đăng kí</button>
-                        </form>
-                    </div><!--/sign up form-->
-                </div>
-            </div>
-        </div>
-    </section><!--/form-->
-    <!--footer bố cục trang -->
-    <div class="review my-5">
-        <h3 class="text-center text-color">REVIEWS</h3>
-        <div class="row container">
-
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="p-4 text-center">
-                    <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                </div>
-                <div class="text-center">
-                    <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                    <p>Nhân viên văn phòng</p>
-                </div>
-                <p class="text-justify">
-                    Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                </p>
-                <p class="text-center">
-                    2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                </p>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="p-4 text-center">
-                    <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                </div>
-                <div class="text-center">
-                    <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                    <p>Nhân viên văn phòng</p>
-                </div>
-                <p class="text-justify">
-                    Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                </p>
-                <p class="text-center">
-                    2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                </p>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="p-4 text-center">
-                    <img class="rounded-circle" src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                </div>
-                <div class="text-center">
-                    <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                    <p>Nhân viên văn phòng</p>
-                </div>
-                <p class="text-justify">
-                    Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                </p>
-                <p class="text-center">
-                    2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                </p>
-            </div>
-
-
-        </div>
-    </div>
-    <div class="footer-widget">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    <div class="single-widget">
-                        <h2>Dịch vụ</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Điều khoản và dịch vụ</a></li>
-                            <li><a href="#">Hướng dẫn mua hàng</a></li>
-                            <li><a href="#">Thông tin chuyển khoản</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="single-widget">
-                        <h2>Chính sách</h2>
-                        <ul class="p-0">
-                            <li><a href="#">Chính sách vận chuyển</a></li>
-                            <li><a href="#">Chính sách đổi trả</a></li>
-                            <li><a href="#">Chính sách bảo hành sản phẩm</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="single-widget">
-                        <h2>Đăng kí Email</h2>
-                        <form action="#" class="searchform">
-                            <input type="text" class="form-control my-3" placeholder="Vui lòng điền Email " />
-                            <p>Để nhận những thông tin khuyến mãi <br /></p>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-    <script src="js/jquery.js"></script>
-    <script src="js/price-range.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+  
 </body>
 </html>

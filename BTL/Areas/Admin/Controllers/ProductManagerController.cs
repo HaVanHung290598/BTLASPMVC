@@ -14,7 +14,7 @@ namespace BTL.Areas.Admin.Controllers
 {
     public class ProductManagerController : Controller
     {
-        private DoDaStoreDB db = new DoDaStoreDB();
+        private QLDoDa db = new QLDoDa();
 
         // GET: Admin/ProductManager
         public ActionResult ProductManager(string sortOrder, string searchString, string currentFilter, int? page)

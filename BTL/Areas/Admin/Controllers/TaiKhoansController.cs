@@ -12,7 +12,7 @@ namespace BTL.Areas.Admin.Controllers
 {
     public class TaiKhoansController : Controller
     {
-        private DoDaStoreDB db = new DoDaStoreDB();
+        private QLDoDa db = new QLDoDa();
 
         // GET: Admin/TaiKhoans
         public ActionResult Index()

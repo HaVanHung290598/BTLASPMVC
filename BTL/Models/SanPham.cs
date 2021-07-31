@@ -9,6 +9,12 @@ namespace BTL.Models
     [Table("SanPham")]
     public partial class SanPham
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SanPham()
+        {
+            Chitietdonhangs = new HashSet<Chitietdonhang>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int maSanPham { get; set; }
@@ -18,6 +24,7 @@ namespace BTL.Models
         public string tenSanPham { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString ="{0:#,###}")]
         public decimal gia { get; set; }
 
         [Column(TypeName = "ntext")]
@@ -52,5 +59,10 @@ namespace BTL.Models
         public string kichThuoc { get; set; }
 
         public int maDanhMuc { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Chitietdonhang> Chitietdonhangs { get; set; }
+
+        public virtual DanhMuc DanhMuc { get; set; }
     }
 }

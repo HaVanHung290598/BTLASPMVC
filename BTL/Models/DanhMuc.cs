@@ -9,6 +9,12 @@ namespace BTL.Models
     [Table("DanhMuc")]
     public partial class DanhMuc
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DanhMuc()
+        {
+            SanPhams = new HashSet<SanPham>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int maDanhMuc { get; set; }
@@ -16,5 +22,8 @@ namespace BTL.Models
         [Required]
         [StringLength(100)]
         public string tenDanhMuc { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "_Aside";
+}
+@model IEnumerable<BTL.Models.SanPham>
+<div class="product bg-light">
+    <div class="text-center mt-5">
+        <img src="https://tamanh.net/wp-content/themes/banhang/images/number_two.png" alt="">
+        <h3 class="text-uppercase">SẢN PHẨM CHẤT LƯỢNG </h3>
+    </div>
+    <div class="row container">
+        @foreach (var item in Model)
+        {
+            
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                    <div class="product_item">
+                        <a href="@Url.Action("SanPhamChiTiet", "Home",new { id=item.maSanPham})">
+                            <div class="product_img">
+                                @{
+                                    string ImagePath = "~/wwwroot/Images/" + item.anh;
+                                    <img src="@Url.Content(ImagePath)" alt="" width="250" height="250" />
+                                }
+                            </div>
+                            <div class="show pb-3">
+                                <p class="text-uppercase text-center text-color my-2">
+                                    @Html.DisplayFor(modelItem => item.gia)VND
+                                </p>
+                                <p class="text-center">
+                                        @Html.DisplayFor(modelItem => item.tenSanPham)
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                }
+                @*<div class="p-5 text-center ">
+                    <a href=""><p class="text-color text-border text-uppercase">Xem tất cả sản phẩm</p></a>
+                </div>*@
+        </div>
+</div>
+
