@@ -1,7 +1,7 @@
-﻿function showProductDetail(product, category) {
+﻿function showProductDetail(product) {
     const { anh, chatLieu, gia, kichThuoc, kieuDang, maDanhMuc, maSanPham, mauSac, moTa, tenSanPham, thietKe, thuongHieu, danhMuc } = product;
-    const { tenDanhMuc } = category;
     document.getElementById("ma_san_pham").innerHTML = `Mã sản phẩm: ${maSanPham}`;
+    document.getElementById("ma_san_pham_input").value = maSanPham;
     document.getElementById("ten_san_pham").value = tenSanPham;
     document.getElementById("gia_san_pham").value = gia;
     document.getElementById("chat_lieu_san_pham").value = chatLieu;
@@ -10,28 +10,56 @@
     document.getElementById("thuong_hieu_san_pham").value = thuongHieu;
     document.getElementById("mau_sac_san_pham").value = mauSac;
     document.getElementById("kich_thuoc_san_pham").value = kichThuoc;
-    document.getElementById("danh_muc_san_pham").value = tenDanhMuc;
+    document.getElementById("danh_muc_san_pham").value = maDanhMuc;
+    document.getElementById("product_img").value = anh;
     const img = document.getElementById("img_avatar_nguoi_dung");
-    img.src = `~/wwwroot/asset/images/products/${anh}`;
+    img.src = `/wwwroot/asset/images/products/${anh}`;
+}
+
+function clearContentDraw() {
+    document.getElementById("ma_san_pham").innerHTML = "";
+    document.getElementById("ten_san_pham").value = "";
+    document.getElementById("gia_san_pham").value = "";
+    document.getElementById("chat_lieu_san_pham").value = "";
+    document.getElementById("kieu_dang_san_pham").value = "";
+    document.getElementById("thiet_ke_san_pham").value = "";
+    document.getElementById("thuong_hieu_san_pham").value = "";
+    document.getElementById("mau_sac_san_pham").value = "";
+    document.getElementById("kich_thuoc_san_pham").value = "";
+    document.getElementById("danh_muc_san_pham").value = "";
+    const img = document.getElementById("img_avatar_nguoi_dung");
+    img.src = "/wwwroot/asset/images/product-default.jpg";
 }
 
 // sau việc handle showDraw sẽ call api lấy dữ liệu chi tiết để vẽ giao diện
 function showDraw(id) {
-    const draw = document.getElementById('draw_content');
-    const drawLayer = document.getElementById('draw_layer');
-    draw.style.right = "0";
-    drawLayer.style.display = "block";
-    const showContent = (response) => {
-        showProductDetail(response.sanPham, response.danhMuc);
-    };
+    const form = document.getElementById("draw_form");
+    const showDrawContent = () => {
+        const draw = document.getElementById('draw_content');
+        const drawLayer = document.getElementById('draw_layer');
+        draw.style.right = "0";
+        drawLayer.style.display = "block";
+    }
+    if (id !== undefined) {
+        form.action = "/Admin/ProductManager/Edit";
+        const showContent = (response) => {
+            showDrawContent();
+            showProductDetail(response.sanPham);
+        };
 
-    $.ajax({
-        url: "/Admin/ProductManager/Details",
-        data: { id: id },
-        dataType: "json",
-        type: "GET",
-        success: showContent
-    });
+        $.ajax({
+            url: "/Admin/ProductManager/Details",
+            data: { id: id },
+            dataType: "json",
+            type: "GET",
+            success: showContent
+        });
+    } else {
+        form.action = "/Admin/ProductManager/Create";
+        clearContentDraw();
+        showDrawContent();
+    }
+
 }
 
 function hiddenDraw() {
@@ -39,7 +67,7 @@ function hiddenDraw() {
     const drawLayer = document.getElementById('draw_layer');
     draw.style.right = "-700px"; // đang fix style draw có width 600px
     drawLayer.style.display = "none";
-    createProductHTML();
+    // createProductHTML();
 }
 
 function handleAvatar(e) {
@@ -65,6 +93,8 @@ function createProductHTML() {
     img.src = "/wwwroot/asset/images/products/giay-nam-buoc-day-da-tron-gnta1901-d..jpg";
     img.width = "200px";
     img.height = "270px";
+    img.style.width = "200px";
+    img.style.height = "270px";
     productItem.appendChild(img);
 
     const productInfo = document.createElement('div');
@@ -119,4 +149,3 @@ function createProductHTML() {
     productInfoContent.appendChild(productPrice);
 
     document.getElementById('list_product').appendChild(productItem);
-}
