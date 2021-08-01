@@ -28,7 +28,15 @@
                     <li><a href="@Url.Action("TaiKhoan", "Home")"><i class="fas fa-user"></i> Tài khoản</a></li>
                     @*<li><a href=""><i class="fas fa-star"></i> Yêu thích</a></li>*@
                     <li><a href="@Url.Action("GioHang", "Home")"><i class="fas fa-cart-plus"></i> Giỏ hàng</a></li>
-                    <li><a href="@Url.Action("DangNhap", "Home")"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
+                    @if (Session["Email"] != null)
+                    {
+                        <li>Xin Chào, @Session["Email"]</li>
+                        <li>@Html.ActionLink("Đăng Xuất", "DangXuat", "Home", htmlAttributes: new { @style = "front-size:small" })</li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("DangNhap", "Home")"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
+                    }
                 </ul>
             </div>
         </div>
