@@ -78,10 +78,19 @@ function handleAvatar(e) {
 
 function deleteProduct(id) {
     if (confirm('Bạn có chắc muốn xóa sản phẩm?')) {
-        $.ajax({
-            url: `/Admin/ProductManager/Delete?id=${id}`,
-            type: "DELETE",
+        fetch("/Admin/ProductManager/Delete", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: id, test: 'testok'}),
         });
+        /*$.ajax({
+            url: "/Admin/ProductManager/Delete",
+            data: { id: id },
+            dataType: "json",
+            type: "POST",
+        });*/
     }
 }
 
@@ -149,3 +158,4 @@ function createProductHTML() {
     productInfoContent.appendChild(productPrice);
 
     document.getElementById('list_product').appendChild(productItem);
+}

@@ -2006,6 +2006,7 @@
     <Content Include="wwwroot\User\js\main.js" />
     <Content Include="wwwroot\User\js\price-range.js" />
     <Content Include="wwwroot\User\js\swiper.js" />
+    <Content Include="Areas\Admin\Views\ProductManager\Delete.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

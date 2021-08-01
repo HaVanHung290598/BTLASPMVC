@@ -97,7 +97,7 @@ namespace BTL.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "maSanPham,tenSanPham,gia,moTa,anh,chatLieu,kieuDang,thietKe,thuongHieu,mauSac,kichThuoc,maDanhMuc")] SanPham sanPham)
         {
-            sanPham.maSanPham = db.SanPhams.ToList().Count() + 1;
+            sanPham.maSanPham = db.SanPhams.ToList().Last().maSanPham + 1;
             sanPham.anh = "";
             var f = Request.Files["ImageFile"];
             if (f != null && f.ContentLength > 0)
@@ -146,13 +146,59 @@ namespace BTL.Areas.Admin.Controllers
             return RedirectToAction("ProductManager");
         }
 
-        // POST: Hangs/Delete/5
+        /*// POST: Hangs/Delete/5
         [HttpDelete]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             SanPham product = db.SanPhams.Find(id);
             db.SanPhams.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("ProductManager");
+        }*/
+        /*[HttpDelete]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int? id)
+        {
+            SanPham product = db.SanPhams.Find(id);
+            db.SanPhams.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("ProductManager");
+        }*/
+
+        // POST: Admin/SanPhams/Delete/5
+        /* [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            SanPham product = db.SanPhams.Find(id);
+            db.SanPhams.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("ProductManager", "ProductManager");
+        }*/
+
+        // GET: Admin/SanPhams/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SanPham sanPham = db.SanPhams.Find(id);
+            if (sanPham == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sanPham);
+        }
+
+        // POST: Admin/SanPhams/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            SanPham sanPham = db.SanPhams.Find(id);
+            db.SanPhams.Remove(sanPham);
             db.SaveChanges();
             return RedirectToAction("ProductManager");
         }

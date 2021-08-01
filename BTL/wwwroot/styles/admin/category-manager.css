@@ -52,6 +52,21 @@
 .category_management .category_item_name {
     width: 45%;
 }
+.category_management .delele_category {
+    position: relative;
+}
+
+.category_management .delele_category .btn_delete_category {
+    position: absolute;
+    top: -95px;
+    left: -180px;
+    background-color: #fff;
+    padding: 6px;
+    box-shadow: 0px 0px 4px 0px;
+    border-radius: 10px;
+    width: 170px;
+    display: none;
+}
 
 /* modal */
 .category_management #modal_add_category #modal_add_category_layer {

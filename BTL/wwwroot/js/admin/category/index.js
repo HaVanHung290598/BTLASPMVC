@@ -1,4 +1,13 @@
-﻿// Đang bị lỗi blur => ko xác nhận thông qua icon được
+﻿function editRowApi(id, value) {
+    $.ajax({
+        url: "/Admin/CategoryManager/Edit",
+        data: { maDanhMuc: id, tenDanhMuc: value },
+        dataType: "json",
+        type: "POST"
+    });
+}
+
+// Đang bị lỗi blur => ko xác nhận thông qua icon được
 function editRow(numberRow, isFinish) {
     const ele = document.getElementById(`dm_${numberRow}`);
     const buttonEdit = document.getElementById(`dm_edit_${numberRow}`);
@@ -9,6 +18,7 @@ function editRow(numberRow, isFinish) {
         ele.innerHTML = inputChange[0].value;
         buttonEdit.style.display = 'inline-block';
         buttonFinishEdit.style.display = 'none';
+        editRowApi(numberRow, inputChange[0].value);
         return;
     }
     const textContent = ele.textContent;
@@ -39,6 +49,7 @@ function editRow(numberRow, isFinish) {
             buttonEdit.style.display = 'inline-block';
             buttonFinishEdit.style.display = 'none';
             ele.innerHTML = input.value;
+            editRowApi(numberRow, input.value);
         }
     }
 }
@@ -76,4 +87,8 @@ function handleAddCategory(e) {
     // const table = document.getElementById('category_table');
     // debugger
     // table.children[0].appendChild(tr);
+}
+
+function showPopupDelete(id, isShow) {
+    document.getElementById(`btn_delete_category_${id}`).style.display =  isShow ? "block" : "none";
 }
