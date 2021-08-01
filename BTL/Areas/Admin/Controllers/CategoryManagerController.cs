@@ -11,7 +11,7 @@ namespace BTL.Areas.Admin.Controllers
 {
     public class CategoryManagerController : Controller
     {
-        private DoDaStoreDB db = new DoDaStoreDB();
+        private QLDoDa db = new QLDoDa();
 
         // GET: Admin/CategoryManager
         public ActionResult CategoryManager(string sortOrder, string searchString, string currentFilter, int? page)
