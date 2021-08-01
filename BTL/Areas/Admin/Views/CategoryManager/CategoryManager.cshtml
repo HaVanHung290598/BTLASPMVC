@@ -1,4 +1,5 @@
-﻿
+﻿@model PagedList.IPagedList<BTL.Models.DanhMuc>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "CategoryManager";
 }
@@ -11,63 +12,81 @@
 <div class="category_management">
     <div>
         <h1>Danh sách danh mục</h1>
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Tìm kiếm theo tên", @style = "padding: 6px 15px; min-height: 25px; min-width: 250px" })
+            <input type="submit" value="Tìm kiếm" style="min-height: 41px; background-color: #fff; border: 0.5px solid; cursor: pointer" />
+        }
         <i class="far fa-plus-square add_category" title="Thêm danh mục" onclick="showModal()"></i>
     </div>
     <div id="modal_add_category">
         <div id="modal_add_category_layer" onclick="hiddenModal()"></div>
         <div id="modal_add_category_content">
-            <input type="text" placeholder="Tên danh mục" id="add_category_input" onchange="handleAddCategory(event)">
+            @using (Html.BeginForm("Create", "CategoryManager", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="text" placeholder="Tên danh mục" id="add_category_input" name="tenDanhMuc" />
+            }
         </div>
     </div>
     <table id="category_table">
         <tr>
             <th>STT</th>
             <th>Mã danh mục</th>
-            <th>Tên danh mục</th>
+            <th>
+                Tên danh mục:
+                @Html.ActionLink(
+                    "Sắp xếp",
+                    "CategoryManager",
+                    new
+                    {
+                        sortOrder = ViewBag.SortWithName == "" ?
+                            "name_desc" :
+                            ViewBag.SortWithName == "name_desc" ?
+                                "name"
+                                : ""
+                        ,
+                        currentFilter = ViewBag.CurrentFilter
+                    })
+                @(ViewBag.SortWithName == "" ? "" : ViewBag.SortWithName == "name_desc" ? ": Z -> A" : ": A -> Z")
+            </th>
             <th></th>
         </tr>
-        <tr>
-            <td>3</td>
-            <td>dm1003</td>
-            <td id="dm_2" class="category_item_name">Giày da nam</td>
-            <td class="action">
-                <span class="icon">
-                    <i class="fas fa-edit" id="dm_edit_2" onclick="editRow(2)" title="Sửa danh mục"></i>
-                    <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_2" onclick="editRow(2, true)" title="Hoàn thành sửa danh mục"></i>
-                </span>
-                <span class="icon">
-                    <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>dm1002</td>
-            <td id="dm_1" class="category_item_name">Thắt lưng nam</td>
-            <td class="action">
-                <span class="icon">
-                    <i class="fas fa-edit" id="dm_edit_1" onclick="editRow(1)" title="Sửa danh mục"></i>
-                    <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_1" onclick="editRow(1, true)" title="Hoàn thành sửa danh mục"></i>
-                </span>
-                <span class="icon">
-                    <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>dm1001</td>
-            <td id="dm_0" class="category_item_name">Ví da nam</td>
-            <td class="action">
-                <span class="icon">
-                    <i class="fas fa-edit" id="dm_edit_0" onclick="editRow(0)" title="Sửa danh mục"></i>
-                    <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_0" onclick="editRow(0, true)" title="Hoàn thành sửa danh mục"></i>
-                </span>
-                <span class="icon">
-                    <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
-                </span>
-            </td>
-        </tr>
+        @{ var index = 0; }
+        @foreach (var item in Model)
+        {
+            index++;
+            <tr>
+                <td>@index</td>
+                <td>@item.maDanhMuc</td>
+                <td id="dm_@item.maDanhMuc" class="category_item_name">@item.tenDanhMuc</td>
+                <td class="action">
+                    <span class="icon">
+                        <i class="fas fa-edit" id="dm_edit_@item.maDanhMuc" onclick="editRow(@item.maDanhMuc)" title="Sửa danh mục"></i>
+                        <i class="fas fa-check dm_finish_edit" id="dm_finish_edit_@item.maDanhMuc" onclick="editRow(@item.maDanhMuc, true)" title="Hoàn thành sửa danh mục"></i>
+                    </span>
+                    <div class="delele_category">
+                        <div class="btn_delete_category" id="btn_delete_category_@item.maDanhMuc">
+                            <p>Bạn có chắc muốn xóa danh mục này?</p>
+                            @using (Html.BeginForm("DeleteConfirmed", "CategoryManager", FormMethod.Post, new { @style = "display: inline-block"}))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input name="id" value="@item.maDanhMuc" style="display: none" />
+                                <input type="submit" value="Xóa" class="btn btn-default" />
+                            }
+                            |<span onclick="showPopupDelete(@item.maDanhMuc)">Hủy</span>
+                        </div>
+                        <span class="icon" onclick="showPopupDelete(@item.maDanhMuc, true)" >
+                            <i class="fas fa-trash-alt" title="Xóa danh mục"></i>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        }
     </table>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("CategoryManager", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
 </div>
 
