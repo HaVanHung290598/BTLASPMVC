@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using PagedList;
 
 namespace BTL.Controllers
 {
@@ -24,18 +26,74 @@ namespace BTL.Controllers
             }
 
         }
-        public ActionResult SanPham(string id)
+        public ActionResult SanPham(string id, string sortOder, string search, string currentFilter, int? page)
         {
-            List<SanPham> sanPhams = new List<SanPham>();
             if (id == null)
             {
-                sanPhams = db.SanPhams.Select(s => s).ToList();
+                if (search != null)
+                {
+                    page = 1;  //Trang  đầu  tiên
+                }
+                else
+                {
+                    search = currentFilter;
+                }
+                ViewBag.CurrentFilter = search;
+                ViewBag.CurrentSort = sortOder;//Biến  lấy  yêu  cầu  sắp  xếp  hiện  tại
+                ViewBag.SapTheoTen = String.IsNullOrEmpty(sortOder) ? "name_desc" : "";
+                ViewBag.SapTheoGia = sortOder == "Gia" ? "gia_desc" : "Gia";
+                var sanPhams = db.SanPhams.Select(s => s);
+                if (!String.IsNullOrEmpty(search))
+                {
+                    sanPhams = sanPhams.Where(p => p.tenSanPham.Contains(search));
+                }
+                switch (sortOder)
+                {
+                    case "name_desc":
+                        sanPhams = sanPhams.OrderByDescending(s => s.tenSanPham);
+                        break;
+                    case "Gia":
+                        sanPhams = sanPhams.OrderBy(s => s.gia);
+                        break;
+                    case "gia_desc":
+                        sanPhams = sanPhams.OrderByDescending(s => s.gia);
+                        break;
+                    default:
+                        sanPhams = sanPhams.OrderBy(s => s.tenSanPham);
+                        break;
+
+                }
+                int pageSize = 8;  //Kích  thước  trang
+                int pageNumber = (page ?? 1);
+                return View(sanPhams.ToPagedList(pageNumber, pageSize));
             }
             else
             {
-                sanPhams = db.SanPhams.Where(s => s.maDanhMuc.ToString().Equals(id)).Select(s => s).ToList();
+                var sanPhams = db.SanPhams.Where(s => s.maDanhMuc.ToString().Equals(id)).Select(s => s);
+                ViewBag.SapTheoTen = String.IsNullOrEmpty(sortOder) ? "name_desc" : "";
+                ViewBag.SapTheoGia = sortOder == "Gia" ? "gia_desc" : "Gia";
+                if (!String.IsNullOrEmpty(search))
+                {
+                    sanPhams = sanPhams.Where(p => p.tenSanPham.Contains(search));
+                }
+                switch (sortOder)
+                {
+                    case "name_desc":
+                        sanPhams = sanPhams.OrderByDescending(s => s.tenSanPham);
+                        break;
+                    case "Gia":
+                        sanPhams = sanPhams.OrderBy(s => s.gia);
+                        break;
+                    case "gia_desc":
+                        sanPhams = sanPhams.OrderByDescending(s => s.gia);
+                        break;
+                    default:
+                        sanPhams = sanPhams.OrderBy(s => s.tenSanPham);
+                        break;
+
+                }
+                return View(sanPhams.ToList());
             }
-            return View(sanPhams);
         }
         public ActionResult SanPhamChiTiet(string id)
         {
@@ -72,7 +130,7 @@ namespace BTL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DangNhap(string tenDangNhap, string password)
+        public ActionResult DangNhap(string tenDangNhap, string password, RouteCollection routes)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +143,7 @@ namespace BTL.Controllers
                 }
                 else
                 {
-                    ViewBag.error = "Đăng nhập không thành công";
+                    ViewBag.error = "Sai tên đăng nhập hoặc mật khẩu";
                 }
             }
             return View();
