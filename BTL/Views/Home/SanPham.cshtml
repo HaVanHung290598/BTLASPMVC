@@ -1,10 +1,29 @@
-﻿
+﻿@model PagedList.IPagedList<BTL.Models.SanPham>
+@using PagedList.Mvc;
+
 @{
     ViewBag.Title = "SanPham";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<BTL.Models.SanPham>
+
 <div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-between py-4 border-top border-bottom" style="width: 1000px; margin-left: 310px">
+        <div class="">
+            <p> @Html.ActionLink("Sắp Xếp Theo Tên", "SanPham", new { sortOder = ViewBag.SapTheoTen })</p>
+        </div>
+        <div class="">
+            <p> @Html.ActionLink("Sắp Xếp Theo Giá", "SanPham", new { sortOder = ViewBag.SapTheoGia })</p>
+        </div>
+        <div class="">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    Tìm  mặt  hàng:  @Html.TextBox("search", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Tìm" />
+                </p>
+            }
+        </div>
+    </div>
     @foreach (var item in Model)
     {
         <div class="bg-light p-3">
@@ -16,108 +35,99 @@
             <h3 class="text-uppercase"> @Html.DisplayFor(modelItem => item.DanhMuc.tenDanhMuc)</h3>
             <div class="d-flex align-items-center justify-content-between py-4 border-top border-bottom">
                 <p class="m-0">Showing 1–18 of @Model.Count() results</p>
-                <div class="">
-                    <select class="form-select">
-                        <option value="" disabled selected>Sắp xếp</option>
-                        <option value="0">Giá từ thấp đến cao</option>
-                        <option value="1">Giá từ cao đến thấp</option>
-                    </select>
-                </div>
+
             </div>
         </div>
         break;
     }
-        <div class="product container">
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <a href="@Url.Action("SanPhamChiTiet", "Home",new { id=item.maSanPham})">
-                            <div class="product_item">
-                                <div class="product_img">
-                                    @{
-                                        string ImagePath = "~/wwwroot/Images/" + item.anh;
-                                    }
-                                    <img class="w-100" src="@Url.Content(ImagePath)" alt="">
-                                </div>
-                                <div class="product_price text-center m-0 mt-3">
-                                    <p class="text-uppercase text-color">@Html.DisplayFor(modelItem => item.gia)</p>
-                                </div>
-                                <p class="px-3 pb-4 m-0">@Html.DisplayFor(modelItem => item.tenSanPham)</p>
-                            </div>
-                        </a>
-                    </div>
-                }
-            </div>
-            <div class="my-5 mx-auto d-flex justify-content-around">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<div class="product container">
 
-            <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle">
-                            <img src="https://tamanh.net/wp-content/uploads/2018/03/icon-3.png" alt="">
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <a href="@Url.Action("SanPhamChiTiet", "Home",new { id=item.maSanPham})">
+                    <div class="product_item">
+                        <div class="product_img">
+                            @{
+                                string ImagePath = "~/wwwroot/Images/" + item.anh;
+                            }
+                            <img class="w-100" src="@Url.Content(ImagePath)" alt="">
                         </div>
-                        <div class="text_product ms-2">
-                            <p class="font-weight-bold m-0">Bảo hành 12 tháng</p>
-                            Với tất cả các sản phẩm được bán tại Đồ Da Tâm Anh
+                        <div class="product_price text-center m-0 mt-3">
+                            <p class="text-uppercase text-color">@Html.DisplayFor(modelItem => item.gia)</p>
                         </div>
+                        <p class="px-3 pb-4 m-0">@Html.DisplayFor(modelItem => item.tenSanPham)</p>
                     </div>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle">
-                            <img src="https://tamanh.net/wp-content/uploads/2018/03/icon-2.png" alt="">
-                        </div>
-                        <div class="text_product ms-2">
-                            <p class="font-weight-bold m-0">Miễn phí giao hàng trên Toàn quốc</p>
-                            Với các đơn hàng có tổng giá trị hóa đơn trên 1,000,000vnđ
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle">
-                            <img src="https://tamanh.net/wp-content/uploads/2018/03/icon-1.png" alt="">
-                        </div>
-                        <div class="text_product ms-2">
-                            <p class="font-weight-bold m-0">Đền gấp 10 giá trị đơn hàng</p>
-                            Đền gấp 10 giá trị đơn hàng
-                        </div>
-                    </div>
-                </div>
+                </a>
             </div>
-            @*<h5 class="text-uppercase mt-5">Khám phá những mẫu giày lười nam cao cấp tại Tâm Anh </h5>
-                <p style="text-align: justify">
-                    Để bắt kịp nhu cầu mua sắm của phái mạnh hiện nay, giày lười nam đang
-                    trở thành một trong những mẫu giày được nhiều người ưa chuộng. Đáp ứng hoàn hảo được những tiêu
-                    chuẩn của một đôi giày lười nam đẹp từ chất liệu da thật, thiết kế hiện đại đến kiểu dáng chắc
-                    chắn,…thương hiệu giày lười Tâm Anh luôn là điểm đến quen thuộc của các quý ông.
+        }
+        <div style="margin-top: 40px;">
+            <br />
+            Trang  @(Model.PageCount  <  Model.PageNumber  ?  0  :  Model.PageNumber)  /  @Model.PageCount
 
-
-                </p>*@
+            @Html.PagedListPager(Model, page => Url.Action("SanPham",
+            new
+            {
+               page,
+               sortOrder = ViewBag.CurrentSort,
+               currentFilter = ViewBag.CurrentFilter
+            }))
         </div>
-
     </div>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
-    <script src="~/wwwroot/js/swiper.js"></script>
+    <div class="row" style="margin-top: 30px">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle">
+                    <img src="https://tamanh.net/wp-content/uploads/2018/03/icon-3.png" alt="">
+                </div>
+                <div class="text_product ms-2">
+                    <p class="font-weight-bold m-0">Bảo hành 12 tháng</p>
+                    Với tất cả các sản phẩm được bán tại Đồ Da Tâm Anh
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle">
+                    <img src="https://tamanh.net/wp-content/uploads/2018/03/icon-2.png" alt="">
+                </div>
+                <div class="text_product ms-2">
+                    <p class="font-weight-bold m-0">Miễn phí giao hàng trên Toàn quốc</p>
+                    Với các đơn hàng có tổng giá trị hóa đơn trên 1,000,000vnđ
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle">
+                    <img src="https://tamanh.net/wp-content/uploads/2018/03/icon-1.png" alt="">
+                </div>
+                <div class="text_product ms-2">
+                    <p class="font-weight-bold m-0">Đền gấp 10 giá trị đơn hàng</p>
+                    Đền gấp 10 giá trị đơn hàng
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<h5 class="text-uppercase mt-5">Khám phá những mẫu giày lười nam cao cấp tại Tâm Anh </h5>
+        <p style="text-align: justify">
+            Để bắt kịp nhu cầu mua sắm của phái mạnh hiện nay, giày lười nam đang
+            trở thành một trong những mẫu giày được nhiều người ưa chuộng. Đáp ứng hoàn hảo được những tiêu
+            chuẩn của một đôi giày lười nam đẹp từ chất liệu da thật, thiết kế hiện đại đến kiểu dáng chắc
+            chắn,…thương hiệu giày lười Tâm Anh luôn là điểm đến quen thuộc của các quý ông.
+
+
+        </p>*@
+</div>
+
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/js/swiper.js"></script>
 </body>
 
 </html>
