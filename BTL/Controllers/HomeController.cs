@@ -69,9 +69,19 @@ namespace BTL.Controllers
             }
             else
             {
-                var sanPhams = db.SanPhams.Where(s => s.maDanhMuc.ToString().Equals(id)).Select(s => s);
+                if (search != null)
+                {
+                    page = 1;  //Trang  đầu  tiên
+                }
+                else
+                {
+                    search = currentFilter;
+                }
+                ViewBag.CurrentFilter = search;
+                ViewBag.CurrentSort = sortOder;//Biến  lấy  yêu  cầu  sắp  xếp  hiện  tại
                 ViewBag.SapTheoTen = String.IsNullOrEmpty(sortOder) ? "name_desc" : "";
                 ViewBag.SapTheoGia = sortOder == "Gia" ? "gia_desc" : "Gia";
+                var sanPhams = db.SanPhams.Where(s => s.maDanhMuc.ToString().Equals(id)).Select(s => s);
                 if (!String.IsNullOrEmpty(search))
                 {
                     sanPhams = sanPhams.Where(p => p.tenSanPham.Contains(search));
@@ -92,7 +102,9 @@ namespace BTL.Controllers
                         break;
 
                 }
-                return View(sanPhams.ToList());
+                int pageSize = 8;  //Kích  thước  trang
+                int pageNumber = (page ?? 1);
+                return View(sanPhams.ToPagedList(pageNumber, pageSize));
             }
         }
         public ActionResult SanPhamChiTiet(string id)
