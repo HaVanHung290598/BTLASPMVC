@@ -54,7 +54,7 @@ namespace BTL.Areas.Admin.Controllers
                     break;
             }
 
-            int pageSize = 10;
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
 
             return View(categorys.ToPagedList(pageNumber, pageSize));

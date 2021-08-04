@@ -37,6 +37,12 @@
                     {
                         <li><a href="@Url.Action("DangNhap", "Home")"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
                     }
+                    @{
+                        if (HttpContext.Current.Session["loaiTaiKhoan"] != null && HttpContext.Current.Session["loaiTaiKhoan"].ToString() == "admin")
+                        {
+                            <a href="@Url.Action("Profile", "Profile", new { area = "Admin" })">Admin</a>
+                        }
+                    }
                 </ul>
             </div>
         </div>

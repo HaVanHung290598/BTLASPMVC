@@ -71,7 +71,7 @@ namespace BTL.Areas.Admin.Controllers
                     break;
             }
 
-            int pageSize = 15;
+            int pageSize = 12;
             int pageNumber = (page ?? 1);
 
             ViewBag.Categorys = db.DanhMucs.ToList();
@@ -79,15 +79,11 @@ namespace BTL.Areas.Admin.Controllers
         }
 
         // GET: /Admin/ProductManager/Details
+        [HttpGet]
         public JsonResult Details(int? id)
         {
             SanPham sanPham = db.SanPhams.Find(id);
-            DanhMuc danhMuc = db.DanhMucs.Find(sanPham.maDanhMuc);
-            return Json(new
-            {
-                sanPham = sanPham,
-                danhMuc = danhMuc,
-            }, JsonRequestBehavior.AllowGet);
+            return Json(new { sanPham = sanPham }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Admin/ProductManager/Create

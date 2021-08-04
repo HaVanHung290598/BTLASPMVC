@@ -14,7 +14,7 @@ namespace BTL.Controllers
         QLDoDa db = new QLDoDa();
         public ActionResult Index()
         {
-            if(Session["maTaiKhoan"] != null)
+            if (Session["maTaiKhoan"] != null)
             {
                 List<SanPham> sanPhams = new List<SanPham>();
                 sanPhams = db.SanPhams.Select(s => s).ToList();
@@ -147,10 +147,11 @@ namespace BTL.Controllers
             if (ModelState.IsValid)
             {
                 var user = db.TaiKhoans.Where(u => u.tenDangNhap.Equals(tenDangNhap) && u.password.Equals(password)).ToList();
-                if(user.Count() > 0)
+                if (user.Count() > 0)
                 {
                     Session["Email"] = user.FirstOrDefault().tenDangNhap;
                     Session["maTaiKhoan"] = user.FirstOrDefault().maTaiKhoan;
+                    Session["loaiTaiKhoan"] = user.FirstOrDefault().loaiTaiKhoan;
                     return RedirectToAction("Index");
                 }
                 else
