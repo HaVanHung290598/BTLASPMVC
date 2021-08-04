@@ -16,6 +16,7 @@ namespace BTL.Models
         }
 
         [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int maDonHang { get; set; }
 
@@ -42,7 +43,17 @@ namespace BTL.Models
         [StringLength(100)]
         public string phuongThucVanChuyen { get; set; }
 
+        [Column(TypeName = "money")]
+        public decimal tongTien { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int maTaiKhoan { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chitietdonhang> Chitietdonhangs { get; set; }
+
+        public virtual TaiKhoan TaiKhoan { get; set; }
     }
 }

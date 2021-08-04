@@ -24,12 +24,13 @@ namespace BTL.Models
         [Column(TypeName = "money")]
         public decimal tongTien { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string kichThuoc { get; set; }
-
-        public virtual Donhang Donhang { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int maTaiKhoan { get; set; }
 
         public virtual SanPham SanPham { get; set; }
+
+        public virtual Donhang Donhang { get; set; }
     }
 }

@@ -25,10 +25,6 @@ namespace BTL.Models
                 .Property(e => e.tongTien)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Chitietdonhang>()
-                .Property(e => e.kichThuoc)
-                .IsUnicode(false);
-
             modelBuilder.Entity<DanhMuc>()
                 .HasMany(e => e.SanPhams)
                 .WithRequired(e => e.DanhMuc)
@@ -43,8 +39,13 @@ namespace BTL.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donhang>()
+                .Property(e => e.tongTien)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<Donhang>()
                 .HasMany(e => e.Chitietdonhangs)
                 .WithRequired(e => e.Donhang)
+                .HasForeignKey(e => new { e.maDonHang, e.maTaiKhoan })
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<loaiTaiKhoan>()
@@ -53,7 +54,7 @@ namespace BTL.Models
 
             modelBuilder.Entity<loaiTaiKhoan>()
                 .HasMany(e => e.TaiKhoans)
-                .WithRequired(e => e.loaiTaiKhoan1)
+                .WithRequired(e => e.loaiTaiKhoan)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SanPham>()
@@ -78,8 +79,21 @@ namespace BTL.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()
-                .Property(e => e.loaiTaiKhoan)
-                .IsUnicode(false);
+                .Property(e => e.email)
+                .IsFixedLength();
+
+            modelBuilder.Entity<TaiKhoan>()
+                .Property(e => e.anh)
+                .IsFixedLength();
+
+            modelBuilder.Entity<TaiKhoan>()
+                .Property(e => e.sdt)
+                .IsFixedLength();
+
+            modelBuilder.Entity<TaiKhoan>()
+                .HasMany(e => e.Donhangs)
+                .WithRequired(e => e.TaiKhoan)
+                .WillCascadeOnDelete(false);
         }
     }
 }
