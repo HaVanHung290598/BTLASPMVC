@@ -1,0 +1,102 @@
+﻿@model BTL.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section loadScript {
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/account-manager.css">
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/draw-detail-user.css">
+    <script src="~/wwwroot/js/admin/account/index.js"></script>
+}
+
+<div class="account_management edit_form">
+    @using (Html.BeginForm("Edit", "AccountManager", FormMethod.Post, new { enctype = "multipart/form-data", @class = "draw_form", @id = "draw_form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Chi tiết tài khoản</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.maTaiKhoan)
+
+            <div style="display: flex; align-items: center">
+                <div class="input_file">
+                    <label for="avatar_nguoi_dung">
+                        <img id="img_avatar_nguoi_dung" src="~/wwwroot/asset/images/account/@Model.anh" width="150px" height="220px" />
+                    </label>
+                    <input type="file" id="avatar_nguoi_dung" onchange="handleAvatar(event)" name="ImageFile" />
+                </div>
+                <div>
+                    <div class="form-group input_item">
+                        <label>Tên đăng nhập</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.tenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.tenDangNhap, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group input_item">
+                        <label>Mật khẩu</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group input_item">
+                        <label>Loại tài khoản</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("maLoaiTK", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.maLoaiTK, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group input_item">
+                        <label>Họ tên</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group input_item">
+                        <label>Email</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group input_item">
+                        <label>Số điện thoại</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.sdt, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sdt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group input_item">
+                        <label>Địa chỉ</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.diaChi, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.diaChi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+            <div class="form-group input_item">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "AccountManager", "AccountManager")
+    </div>
+</div>

@@ -29,3 +29,66 @@
 .account_management .action span:hover i {
     color: #1F253A;
 }
+
+.account_management .delele_account {
+    position: relative;
+}
+
+.account_management .delele_account .btn_delete_account {
+    position: absolute;
+    top: -95px;
+    left: -180px;
+    background-color: #fff;
+    padding: 6px;
+    box-shadow: 0px 0px 4px 0px;
+    border-radius: 10px;
+    width: 170px;
+    display: none;
+}
+
+.edit_form .input_item {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit_form .input_item label {
+    margin-bottom: 5px;
+}
+
+.edit_form .input_item input {
+    padding: 10px 7px;
+    border-radius: 5px;
+    /*border: none;*/
+    border: 0.5px #b7b7b7 solid;
+}
+
+.edit_form .input_item select {
+    padding: 10px 7px;
+    border-radius: 5px;
+    /*border: none;*/
+    border: 0.5px #b7b7b7 solid;
+}
+
+.edit_form .input_item input:focus {
+    outline: none;
+}
+
+.edit_form .input_file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 68px;
+}
+
+.edit_form .input_file #img_avatar_nguoi_dung {
+    /*border-radius: 100%;*/
+}
+
+.edit_form .input_file label:hover {
+    cursor: pointer;
+}
+
+.edit_form .input_file #avatar_nguoi_dung {
+    display: none;
+}

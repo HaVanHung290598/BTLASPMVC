@@ -6,15 +6,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    /*display: none;*/
+    display: none;
 }
 #draw #draw_content {
+    z-index: 100;
     position: fixed;
     background-color: #fff;
     bottom: 0;
     top: 0;
-    /*right: -700px;*/
-    right: 0;
+    right: -700px;
+    /*right: 0;*/
     width: 700px;
     transition: right 0.5s;
     padding: 0;
@@ -54,6 +55,12 @@
     margin-bottom: 7px;
 }
 #draw #draw_content .draw_form .input_item input {
+    padding: 15px 10px;
+    border-radius: 5px;
+    /*border: none;*/
+    border: 0.5px #b7b7b7 solid;
+}
+#draw #draw_content .draw_form .input_item select {
     padding: 15px 10px;
     border-radius: 5px;
     /*border: none;*/

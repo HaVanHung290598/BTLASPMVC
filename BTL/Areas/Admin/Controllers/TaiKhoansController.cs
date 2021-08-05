@@ -17,7 +17,7 @@ namespace BTL.Areas.Admin.Controllers
         // GET: Admin/TaiKhoans
         public ActionResult Index()
         {
-            var taiKhoans = db.TaiKhoans.Include(t => t.loaiTaiKhoan1);
+            var taiKhoans = db.TaiKhoans.Include(t => t.maTaiKhoan);
             return View(taiKhoans.ToList());
         }
 

@@ -18,3 +18,7 @@ function handleAvatar(e) {
     const img = document.getElementById('img_avatar_nguoi_dung');
     img.src = window.webkitURL.createObjectURL(files[0]);
 }
+
+function showPopupDelete(id, isShow) {
+    document.getElementById(`btn_delete_account_${id}`).style.display = isShow ? "block" : "none";
+}
