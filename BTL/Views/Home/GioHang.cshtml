@@ -3,97 +3,112 @@
     ViewBag.Title = "GioHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<BTL.Models.Donhang>
-    <div class="container-fluid">
-        <!--header bố cục trang -->
-        <div class="container">
-            <h3 class="py-4 m-0 border-bottom">THANH TOÁN</h3>
-            <div class="d-flex justify-content-between align-items-center p-4 bg-light">
-                <p class="m-0">2 × “Giày lười nam da bò GNTA8969-D” đã được thêm vào giỏ hàng.</p>
-                <button class="btn btn-primary">Xem giỏ hàng</button>
-            </div>
-            <h5 class="my-3">Đơn hàng ( 2 sản phẩm )</h5>
-            <p class="font-weight-bold">Sản phẩm</p>
+@model IEnumerable<BTL.Models.SanPham>
+
+<div class="container-fluid">
+    
+    <div class="container">
+        <h3 class="py-4 m-0 border-bottom">THANH TOÁN</h3>
+        <div class="d-flex justify-content-between align-items-center p-4 bg-light">
+            <p class="m-0">2 × “Giày lười nam da bò GNTA8969-D” đã được thêm vào giỏ hàng.</p>
+        </div>
+        <h5 class="my-3">Đơn hàng ( 2 sản phẩm )</h5>
+        <p class="font-weight-bold">Sản phẩm</p>
+        @if (Model.Count() == 0)
+        {
+            <p style="margin-left: 200px;color: red">Chưa có sản phẩm nào được đưa vào giỏ hàng <a href="@Url.Action("SanPham", "Home")" style="margin-left: 50px" class="btn btn-primary">Đến mua hàng</a></p>
+
+        }
+        else
+        {
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Sản phẩm</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Tổng</th>
-                        <th scope="col">Xóa</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">giá</th>
+                        <th scope="col">Ảnh</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td><img style="width:100px;" class="me-2" src="https://tamanh.net/wp-content/uploads/2019/05/giay-luoi-nam-da-bo-GNTA8969-D.jpg" alt="">Giày lười nam da bò GNTA8969-D</td>
-                        <td>870,000₫</td>
-                        <td><input type="number" value="1" style="width: 100px;" class="form-control"></td>
-                        <td>1,740,000₫</td>
-                        <td><i class="fas fa-times"></i></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td><img style="width:100px;" class="me-2" src="https://tamanh.net/wp-content/uploads/2019/05/giay-luoi-nam-da-bo-GNTA8969-D.jpg" alt="">Giày lười nam da bò GNTA8969-D</td>
-                        <td>870,000₫</td>
-                        <td><input type="number" value="1" style="width: 100px;" class="form-control"></td>
-                        <td>1,740,000₫</td>
-                        <td><i class="fas fa-times"></i></td>
-                    </tr>
+                    @foreach (var item in Model)
+                    {
+
+                        {
+                            <tr>
+                                <th scope="row">@Html.DisplayFor(modelItem => item.maSanPham) </th>
+                                <th scope="row">@Html.DisplayFor(modelItem => item.tenSanPham) </th>
+                                <td>@Html.DisplayFor(modelItem => item.gia)</td>
+
+                                <td>
+                                    @{
+                                        string ImagePath = "~/wwwroot/asset/images/products/" + item.anh;
+                                    }
+                                    <img style="width:100px;" class="me-2" src="@Url.Content(ImagePath)" alt="">
+                                </td>
+                            </tr>
+                        }
+
+                    }
                 </tbody>
             </table>
-            <p>Sử dụng mã giảm giá</p>
-            <div class="d-flex">
-                <input type="text" class="form-control" style="width: 200px;" name="" placeholder="Nhập mã giảm giá">
-                <button class="btn btn-primary mx-2">Áp Dụng</button>
-                <button class="btn btn-secondary">Cập nhật giỏ hàng</button>
-            </div>
-            <div class="py-4 border-top">
-
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <h4 class="text-uppercase">Thông tin cá nhân</h4>
-                        <form>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Họ Tên *</label>
-                                <input type="text" class="form-control" placeholder="Họ tên" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Địa chỉ *</label>
-                                <input type="text" class="form-control" placeholder="Địa chỉ" id="exampleInputPassword1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Số điện thoại *</label>
-                                <input type="text" class="form-control" placeholder="Số điện thoại" id="exampleInputPassword1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Địa chỉ email *</label>
-                                <input type="text" class="form-control" placeholder="Địa chỉ mail" id="exampleInputPassword1">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <h4 class="text-uppercase">Thông tin thêm</h4>
-                        <p class="m-0 mb-1">Chú thích thêm (tuỳ chọn)</p>
-                        <textarea class="form-control">Yêu cầu của bạn về đơn hàng</textarea>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <p>Tổng tiền: 1,740,000₫</p>
-                    <h4 class="text-uppercase">Số tiền cần thanh toán: <span class="text-color">1,740,000₫</span></h4>
-                </div>
-                <button class="btn btn-primary">ĐẶT HÀNG</button>
-            </div>
-        </div>
-
+        }
+    <div style="display: inline-block">
+        <button style="margin-left: 600px" class="btn btn-primary">THANH TOÁN</button>
+        <h4 style="margin-left: 600px">Tổng tiền @ViewBag.TienTong</h4>
     </div>
+        <p style="margin-top: 100px">Sử dụng mã giảm giá</p>
+        <div class="d-flex">
+            <input type="text" class="form-control" style="width: 200px;" name="" placeholder="Nhập mã giảm giá">
+            <button class="btn btn-primary mx-2">Áp Dụng</button>
+            <button class="btn btn-secondary">Cập nhật giỏ hàng</button>
+        </div>
+        <div class="py-4 border-top">
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h4 class="text-uppercase">Thông tin cá nhân</h4>
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Họ Tên *</label>
+                            <input type="text" class="form-control" placeholder="Họ tên" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Địa chỉ *</label>
+                            <input type="text" class="form-control" placeholder="Địa chỉ" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Số điện thoại *</label>
+                            <input type="text" class="form-control" placeholder="Số điện thoại" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Địa chỉ email *</label>
+                            <input type="text" class="form-control" placeholder="Địa chỉ mail" id="exampleInputPassword1">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h4 class="text-uppercase">Thông tin thêm</h4>
+                    <p class="m-0 mb-1">Chú thích thêm (tuỳ chọn)</p>
+                    <textarea class="form-control">Yêu cầu của bạn về đơn hàng</textarea>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p>Tổng tiền: 1,740,000₫</p>
+                <h4 class="text-uppercase">Số tiền cần thanh toán: <span class="text-color">1,740,000₫</span></h4>
+            </div>
+            <button class="btn btn-primary">ĐẶT HÀNG</button>
+        </div>
+    </div>
+
+    <!--header bố cục trang -->
+
+</div>
     <div class="review my-5">
         <h3 class="text-center text-color">REVIEWS</h3>
         <div class="row container">

@@ -53,7 +53,7 @@
             <a href="@Url.Action("SanPhamChiTiet", "Home",new { id=item.maSanPham})">
 
                 @{
-                    string ImagePath = "~/wwwroot/Images/" + item.anh;
+                    string ImagePath = "~/wwwroot/asset/images/products/" + item.anh;
                     <img src="@Url.Content(ImagePath)" alt="" width="250" height="250" />
                 }
                 <h5 class="text-uppercase my-2 text-center my-2">

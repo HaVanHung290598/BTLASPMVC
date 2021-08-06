@@ -1,7 +1,6 @@
 ﻿
 @{
     ViewBag.Title = "SanPhamChiTiet";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model IEnumerable<BTL.Models.SanPham>
 <div class="container-fluid">
@@ -26,6 +25,7 @@
                         </a>
                     </div>
                 </div>
+               
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="detail my-5 ps-5">
                         <h3>@Html.DisplayFor(modelItem => item.tenSanPham)</h3>
@@ -56,9 +56,25 @@
                             </span>
                         </div>
                     </div>
-                    <button class="btn btn-primary ms-5 my-3">THANH TOÁN NGAY</button>
+                    @using (Html.BeginForm("GioHang", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "draw_form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (Session["maTaiKhoan"] == null)
+                        {
+
+
+                            <div>Bạn cần đăng nhập để mua hàng</div>
+                        }
+                        else
+                        {
+                            <div class="group">
+                               <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="btn btn-primary" value="THÊM VÀO GIỎ HÀNG">
+                            </div>
+
+                        }
+                    }
+                    </div>
                 </div>
-            </div>
             <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div class="d-flex align-items-center">

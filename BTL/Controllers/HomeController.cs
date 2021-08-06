@@ -6,9 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using PagedList;
+using System.IO;
 
 namespace BTL.Controllers
-{
+{ 
     public class HomeController : Controller
     {
         QLDoDa db = new QLDoDa();
@@ -110,6 +111,15 @@ namespace BTL.Controllers
         public ActionResult SanPhamChiTiet(string id)
         {
             List<SanPham> sanPhams = new List<SanPham>();
+            Chitietdonhang chitietdonhang = new Chitietdonhang();
+            if(Session["maTaiKhoan"] != null)
+            {
+                chitietdonhang.maDonHang = (int)Session["maTaiKhoan"];
+                chitietdonhang.maTaiKhoan = (int)Session["maTaiKhoan"];
+                chitietdonhang.maSanPham = Int32.Parse(id);
+                db.Chitietdonhangs.Add(chitietdonhang);
+                db.SaveChanges();
+            }
             if (id == null)
             {
                 sanPhams = db.SanPhams.Select(s => s).ToList();
@@ -118,6 +128,7 @@ namespace BTL.Controllers
             {
                 sanPhams = db.SanPhams.Where(s => s.maSanPham.ToString().Equals(id)).Select(s => s).ToList();
             }
+            
             return View(sanPhams);
         }
         public ActionResult LienHe()
@@ -152,6 +163,11 @@ namespace BTL.Controllers
                     Session["Email"] = user.FirstOrDefault().tenDangNhap;
                     Session["maTaiKhoan"] = user.FirstOrDefault().maTaiKhoan;
                     Session["loaiTaiKhoan"] = user.FirstOrDefault().loaiTaiKhoan;
+                    Session["mail"] = user.FirstOrDefault().email;
+                    Session["HoTen"] = user.FirstOrDefault().hoTen;
+                    Session["Anh"] = user.FirstOrDefault().anh;
+                    Session["DiaChi"] = user.FirstOrDefault().diaChi;
+                    Session["sdt"] = user.FirstOrDefault().sdt;
                     return RedirectToAction("Index");
                 }
                 else
@@ -162,11 +178,61 @@ namespace BTL.Controllers
             return View();
         }
 
+        public ActionResult register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult register([Bind(Include = "maTaiKhoan,maLoaiTK, tenDangNhap, password, email, hoTen, anh, diaChi, sdt")] TaiKhoan taiKhoan)
+        {
+            taiKhoan.maTaiKhoan = db.TaiKhoans.ToList().Last().maTaiKhoan + 1;
+            taiKhoan.maLoaiTK = 2;
+            taiKhoan.anh = "";
+            var f = Request.Files["ImageFile"];
+            var pass = Request.Files["retrypassword"];
+
+            if (f != null && f.ContentLength > 0)
+            {
+                string FileName = System.IO.Path.GetFileName(f.FileName);
+                string UploadPath = Path.Combine(Server.MapPath("~/wwwroot/Images/"), FileName);
+                f.SaveAs(UploadPath);
+                taiKhoan.anh = FileName;
+            }
+            db.TaiKhoans.Add(taiKhoan);
+            db.SaveChanges();
+            return RedirectToAction("register");
+        }
+           
         public ActionResult GioHang()
         {
-            List<Donhang> donhangs = new List<Donhang>();
-            donhangs = db.Donhangs.Select(s => s).ToList();
-            return View(donhangs);
+            List<Chitietdonhang> chitietdonhangs = new List<Chitietdonhang>();
+            
+            if(Session["maTaiKhoan"] != null)
+            {
+                var i = Session["maTaiKhoan"].ToString();
+                chitietdonhangs = db.Chitietdonhangs.Where(s => s.maTaiKhoan.ToString().Equals(i)).Select(s => s).ToList();
+            }
+            else
+            {
+                chitietdonhangs = db.Chitietdonhangs.Select(s => s).ToList();
+            }
+            List<SanPham> sanPhams = new List<SanPham>();
+            int TongTien = 0;
+            foreach (var item in chitietdonhangs)
+            {
+                foreach(var item2 in db.SanPhams.Select(s => s).ToList())
+                {
+                    if(item2.maSanPham == item.maSanPham)
+                    {
+                        sanPhams.Add(item2);
+                        TongTien = (int)(TongTien + item2.gia);
+                    }
+                }
+            }
+            ViewBag.TienTong = TongTien.ToString();
+            return View(sanPhams);
         }
         public PartialViewResult _Menu()
         {
