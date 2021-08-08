@@ -41,7 +41,7 @@ namespace BTL.Models
 
         [Required]
         [StringLength(100)]
-        public string phuongThucVanChuyen { get; set; }
+        public string trangThai { get; set; }
 
         [Column(TypeName = "money")]
         public decimal tongTien { get; set; }

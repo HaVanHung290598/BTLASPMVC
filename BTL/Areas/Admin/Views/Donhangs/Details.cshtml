@@ -4,63 +4,103 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@{
+    var chiTietDonHangs = ViewBag.chiTietDonHangs;
+    var taiKhoan = ViewBag.taiKhoan;
+}
+@section loadScript {
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/account-manager.css">
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/draw-detail-user.css">
+    <script src="~/wwwroot/js/admin/account/index.js"></script>
+}
 
-<div>
-    <h4>Donhang</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.hoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.diaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.diaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.soDienThoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.soDienThoai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.chuThich)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.chuThich)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.phuongThucVanChuyen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.phuongThucVanChuyen)
-        </dd>
-
-    </dl>
+<div class="account_management">
+    @Html.ActionLink("Quay lại", "Index")
+    <h2>Chi tiết hóa đơn</h2>
+    <div>
+        <h3>Đơn hàng</h3>
+        <table style="width: 100%">
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Họ tên người nhận</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Mã tài khoản đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>@Model.maDonHang</td>
+                <td>@Model.hoTen</td>
+                <td>@Model.diaChi</td>
+                <td>@Model.soDienThoai</td>
+                <td>@Model.email</td>
+                <td>@Model.maTaiKhoan</td>
+                <td>@Model.tongTien</td>
+                <td>@Model.trangThai</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h3>Tài khoản</h3>
+        <table style="width: 100%">
+            <tr>
+                <th>Mã tài khoản</th>
+                <th>Tên tài khoản</th>
+                <th>Email</th>
+                <th>Họ tên</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>@taiKhoan.maTaiKhoan</td>
+                <td>@taiKhoan.tenDangNhap</td>
+                <td>@taiKhoan.email</td>
+                <td>@taiKhoan.hoTen</td>
+                <td>@taiKhoan.diaChi</td>
+                <td>@taiKhoan.sdt</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h3>Danh sách sản phẩm trong đơn hàng</h3>
+        <table style="width: 100%">
+            <tr>
+                <th>Ảnh</th>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá sản phẩm</th>
+                <th>Chất liệu</th>
+                <th>Kiểu dáng</th>
+                <th>Màu sắc</th>
+                <th>Kích thước</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+                <th></th>
+            </tr>
+            @foreach (var item in chiTietDonHangs)
+            {
+                <tr>
+                    <td>
+                        <img src="~/wwwroot/asset/images/products/@item.SanPham.anh" alt="" width="70px" height="100px" />
+                    </td>
+                    <td>@item.maSanPham</td>
+                    <td>@item.SanPham.tenSanPham</td>
+                    <td>@item.SanPham.gia</td>
+                    <td>@item.SanPham.chatLieu</td>
+                    <td>@item.SanPham.kieuDang</td>
+                    <td>@item.SanPham.mauSac</td>
+                    <td>@item.SanPham.kichThuoc</td>
+                    <td>@item.soLuong</td>
+                    <td>@item.tongTien</td>
+                    <td></td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.maDonHang }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
