@@ -1,63 +1,112 @@
-﻿@model IEnumerable<BTL.Models.Donhang>
+﻿@model PagedList.IPagedList<BTL.Models.Donhang>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.hoTen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.diaChi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.soDienThoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.chuThich)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.phuongThucVanChuyen)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.hoTen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.diaChi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.soDienThoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.chuThich)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phuongThucVanChuyen)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.maDonHang }) |
-            @Html.ActionLink("Details", "Details", new { id=item.maDonHang }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.maDonHang })
-        </td>
-    </tr>
+@section loadScript {
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/account-manager.css">
+    <link rel="stylesheet" href="~/wwwroot/styles/admin/draw-detail-user.css">
+    <script src="~/wwwroot/js/admin/account/index.js"></script>
 }
+<script>
+    function onChangeSelect(event, maDonHang, maTaiKhoan, trangThaiCu) {
+        const value = event.value;
+        debugger;
+        if (confirm("Bạn có chắc muốn cập nhật trạng thái đơn hàng ?")) {
+            $.ajax({
+                url: "/Admin/Donhangs/Edit",
+                data: { statusValue: value, maDonHang: maDonHang, maTaiKhoan: maTaiKhoan },
+                dataType: "json",
+                type: "POST"
+            });
+        } else {
+            const item = document.getElementById(`selectd_status_invoice_${maDonHang}`);
+            item.value = trangThaiCu;
+        }
+    }
+</script>
 
-</table>
+<div class="account_management">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px">
+        <h1 style="margin: 0">Danh sách hóa đơn</h1>
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Mã hóa đơn", @style = "padding: 6px 15px; min-height: 25px; width: 100px" })
+            <select name="filterStatus" style="padding: 11px 15px; min-height: 25px; min-width: 250px">
+                <option value="" @(ViewBag.CurrentFilterWithStatus == "" || ViewBag.CurrentFilterWithStatus == null ? "selected" : "")></option>
+                <option value="RP" @(ViewBag.CurrentFilterWithStatus == "RP" ? "selected" : "")>Nhận đơn</option>
+                <option value="PD" @(ViewBag.CurrentFilterWithStatus == "PD" ? "selected" : "")>Chờ giao hàng</option>
+                <option value="FN" @(ViewBag.CurrentFilterWithStatus == "FN" ? "selected" : "")>Đã giao hàng</option>
+            </select>
+            <input type="submit" value="Tìm kiếm" style="min-height: 41px; background-color: #fff; border: 0.5px solid; cursor: pointer" />
+        }
+    </div>
+    <table>
+        <tr>
+            <th>STT</th>
+            <th>Mã đơn hàng</th>
+            <th>Họ tên người nhận</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Mã tài khoản đặt</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+        @{
+            var index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            index++;
+            var status = item.trangThai.ToString();
+            <tr>
+                <td>@index</td>
+                <td>@item.maDonHang</td>
+                <td>@item.hoTen</td>
+                <td>@item.diaChi</td>
+                <td>@item.soDienThoai</td>
+                <td>@item.email</td>
+                <td>@item.maTaiKhoan</td>
+                <td>@item.tongTien</td>
+                <td>
+                    <select id="selectd_status_invoice_@item.maDonHang" onchange="onChangeSelect(this, @item.maDonHang, @item.maTaiKhoan, '@item.trangThai')">
+                        <option value="RP" @(item.trangThai == "RP" ? "selected" : "")>Đã nhận đơn</option>
+                        <option value="PD" @(item.trangThai == "PD" ? "selected" : "")>Chờ giao hàng</option>
+                        <option value="PN" @(item.trangThai == "PN" ? "selected" : "")>Đã giao hàng</option>
+                    </select>
+                </td>
+                <td class="action">
+                    <span class="icon">
+                        <a href="@Url.Action("Details", "Donhangs", new { maDonHang = item.maDonHang, maTaiKhoan = item.maTaiKhoan })">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </span>
+                    <div class="delele_account">
+                        <div class="btn_delete_account" id="btn_delete_account_@item.maDonHang">
+                            <p>Bạn có chắc muốn xóa danh mục này?</p>
+                            @using (Html.BeginForm("DeleteConfirmed", "Donhangs", FormMethod.Post, new { @style = "display: inline-block" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input name="maDonHang" value="@item.maDonHang" style="display: none" />
+                                <input name="maTaiKhoan" value="@item.maTaiKhoan" style="display: none" />
+                                <input type="submit" value="Xóa" class="btn btn-default" />
+                            }
+                            |<span onclick="showPopupDelete(@item.maDonHang)">Hủy</span>
+                        </div>
+                        <span class="icon" onclick="showPopupDelete(@item.maDonHang, true)">
+                            <i class="fas fa-trash-alt" title="Xóa tài khoản"></i>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentFilterWithStatus = ViewBag.CurrentFilterWithStatus }))
+    </div>
+</div>

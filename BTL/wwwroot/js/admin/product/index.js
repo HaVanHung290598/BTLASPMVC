@@ -46,9 +46,8 @@ function showDraw(id) {
             showDrawContent();
             showProductDetail(response.sanPham);
         };
-
         $.ajax({
-            url: "/Admin/ProductManager/Details",
+            url: "/Admin/ProductManager/Detail",
             data: { id: id },
             dataType: "json",
             type: "GET",

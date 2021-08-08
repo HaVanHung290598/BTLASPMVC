@@ -56,7 +56,7 @@ namespace BTL.Areas.Admin.Controllers
                     break;
             }
 
-            int pageSize = 12;
+            int pageSize = 3;
             int pageNumber = (page ?? 1);
             
             ViewBag.Roles = db.loaiTaiKhoans.ToList();
