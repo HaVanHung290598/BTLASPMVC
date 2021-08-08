@@ -80,10 +80,25 @@ namespace BTL.Areas.Admin.Controllers
 
         // GET: /Admin/ProductManager/Details
         [HttpGet]
-        public JsonResult Details(int? id)
+        public JsonResult Detail(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);
-            return Json(new { sanPham = sanPham }, JsonRequestBehavior.AllowGet);
+            var sanPham = db.SanPhams.Find(id);
+            var _sanPham = new { 
+                anh = sanPham.anh,
+                chatLieu = sanPham.chatLieu,
+                gia = sanPham.gia,
+                kichThuoc = sanPham.kichThuoc,
+                kieuDang = sanPham.kieuDang,
+                maDanhMuc = sanPham.maDanhMuc,
+                maSanPham = sanPham.maSanPham,
+                mauSac = sanPham.mauSac,
+                moTa = sanPham.moTa,
+                soLuongCo = sanPham.soLuongCo,
+                tenSanPham = sanPham.tenSanPham,
+                thietKe = sanPham.thietKe,
+                thuongHieu = sanPham.thuongHieu,
+            };
+            return Json(new { sanPham = _sanPham }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Admin/ProductManager/Create
