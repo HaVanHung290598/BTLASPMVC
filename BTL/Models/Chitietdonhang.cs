@@ -19,6 +19,11 @@ namespace BTL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int maSanPham { get; set; }
 
+        public int soLuong { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal tongTien { get; set; }
+
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
