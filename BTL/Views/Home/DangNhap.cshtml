@@ -40,6 +40,7 @@
                         </div>
                         <div style="color: red">
                             @ViewBag.error
+                            @Html.Raw(TempData["Message"])
                         </div>
                     }
                     <div class="hr"></div>

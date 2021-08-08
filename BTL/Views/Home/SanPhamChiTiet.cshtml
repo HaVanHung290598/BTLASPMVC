@@ -12,69 +12,71 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="content my-5">
-                        <a data-fancybox="gallery"
-                           href="#"
-                           data-caption="Caption for single image">
-                            @{
-                                string ImagePath = "~/wwwroot/asset/images/products/" + item.anh;
-                            }
-                            <img class="w-100" src="@Url.Content(ImagePath)" alt="">
-                        </a>
-                    </div>
-                </div>
-               
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="detail my-5 ps-5">
-                        <h3>@Html.DisplayFor(modelItem => item.tenSanPham)</h3>
-                        <p>- Chất liệu : @Html.DisplayFor(modelItem => item.chatLieu)</p>
-                        <p>- Thương hiệu : @Html.DisplayFor(modelItem => item.thuongHieu)</p>
-                        <p>- Màu sắc : @Html.DisplayFor(modelItem => item.mauSac)</p>
-                        <p>- Kích thước : @Html.DisplayFor(modelItem => item.kichThuoc)</p>
-                        <p>– Bảo hành 12 tháng</p>
-                    </div>
-                    <p style="font-size: 30px;" class="font_size-2 text-uppercase text-color ps-5">
-                        @Html.DisplayFor(modelItem => item.gia)
-                    </p>
-                    <div class="col-lg-3 ms-5">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button type="button" class="quantity-left-minus btn btn-danger btn-number"
-                                        data-type="minus" data-field="">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </span>
-                            <input style="text-align: center" type="text" id="quantity" name="quantity" class="form-control input-number"
-                                   value="1" min="1" max="100">
-                            <span class="input-group-btn">
-                                <button type="button" class="quantity-right-plus btn btn-success btn-number"
-                                        data-type="plus" data-field="">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </span>
+            @using (Html.BeginForm("GioHang", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "draw_form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row" style="display: flex">
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="content my-5">
+                            <a data-fancybox="gallery"
+                               href="#"
+                               data-caption="Caption for single image">
+                                @{
+                                    string ImagePath = "~/wwwroot/asset/images/products/" + item.anh;
+                                }
+                                <img class="w-100" src="@Url.Content(ImagePath)" alt="">
+                            </a>
                         </div>
                     </div>
-                    @using (Html.BeginForm("GioHang", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "draw_form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        if (Session["maTaiKhoan"] == null)
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="detail my-5 ps-5">
+                            <h3>@Html.DisplayFor(modelItem => item.tenSanPham)</h3>
+                            <p>- Chất liệu : @Html.DisplayFor(modelItem => item.chatLieu)</p>
+                            <p>- Thương hiệu : @Html.DisplayFor(modelItem => item.thuongHieu)</p>
+                            <p>- Màu sắc : @Html.DisplayFor(modelItem => item.mauSac)</p>
+                            <p>- Kích thước : @Html.DisplayFor(modelItem => item.kichThuoc)</p>
+                            <p>– Bảo hành 12 tháng</p>
+                        </div>
+                        <p style="font-size: 30px;" class="font_size-2 text-uppercase text-color ps-5">
+                            @Html.DisplayFor(modelItem => item.gia)
+                        </p>
+                        <div class="col-lg-3 ms-5">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number"
+                                            data-type="minus" data-field="">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </span>
+                                <input style="text-align: center" type="text" id="soLuong" name="soLuong" class="form-control input-number"
+                                       value="1" min="1" max="100">
+                                <span class="input-group-btn">
+                                    <button type="button" class="quantity-right-plus btn btn-success btn-number"
+                                            data-type="plus" data-field="">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        @if (Session["maTaiKhoan"] == null)
                         {
-
-
-                            <div>Bạn cần đăng nhập để mua hàng</div>
+                            <div style="margin-top: 40px" class="font_size-2 text-uppercase text-color ps-5">Bạn cần đăng nhập để mua hàng</div>
                         }
                         else
                         {
-                            <div class="group">
-                               <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="btn btn-primary" value="THÊM VÀO GIỎ HÀNG">
+                            <input name="maSanPham" style="display: none" value="@item.maSanPham" />
+                            <input name="gia" style="display: none" value="@item.gia" />
+                            <div class="font_size-2 text-uppercase text-color ps-5" style="margin-top: 40px">
+                                <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="btn btn-primary" value="THÊM VÀO GIỎ HÀNG">
                             </div>
-
                         }
-                    }
                     </div>
                 </div>
+            }
+
             <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div class="d-flex align-items-center">
@@ -144,65 +146,65 @@
 
             </div>
             <!--<div class="row  align-items-center my-5">-->
-                @*<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <h3>Chi tiết đế giày</h3>
-                    <p class="text-justify">
-                        <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Đế giày được thiết kế
-                        chắc chắn với lớp cao su non hiện đại mang lại cảm
-                        giác thoải mái khi sử dụng.
-                    </p>
-                    <p>
-                        <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Thiết kế xẻ rãnh chống trơn trượt khi sử
-                        dụng.
-                    </p>
-                    <p><i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Thiết kế đế thời trang, hiện đại.</p>
-                </div>*@
-                <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="img_hover">
-                        @{
-                            string ImagePath2 = "~/wwwroot/Images/" + item.anh;
-                        }
-                        <img class="w-100" src="@Url.Content(ImagePath2)" alt="">
-                    </div>
-                </div>
-            </div>-->
-        <div class="row align-items-center  my-5">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="p-5">
-                    <div class="text-center">
-
-                    </div>
-                    <div class="text-hover my-3">
-                        <h3>Chính sách sản phẩm</h3>
-
-                    </div>
-                    <div class="">
-                        <p>
-                            <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Sản xuất và độc quyền tại Đồ da
-                            Tâm Anh
-                        </p>
-                        <p><i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Bảo hành 12 tháng</p>
-                        <p>
-                            <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Giao hàng toàn quốc, thanh toán
-                            sau khi nhận hàng
-                        </p>
-                        <p>
-                            <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Đổi trả hàng trong vòng 15 ngày
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="img_hover">
-                    @{
-                        string ImagePath3 = "~/wwwroot/Images/" + item.anh;
-                    }
-                    <img class="w-100" src="@Url.Content(ImagePath3)" alt="">
-                </div>
-
+            @*<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3>Chi tiết đế giày</h3>
+            <p class="text-justify">
+                <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Đế giày được thiết kế
+                chắc chắn với lớp cao su non hiện đại mang lại cảm
+                giác thoải mái khi sử dụng.
+            </p>
+            <p>
+                <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Thiết kế xẻ rãnh chống trơn trượt khi sử
+                dụng.
+            </p>
+            <p><i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Thiết kế đế thời trang, hiện đại.</p>
+        </div>*@
+            <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="img_hover">
+                @{
+                    string ImagePath2 = "~/wwwroot/Images/" + item.anh;
+                }
+                <img class="w-100" src="@Url.Content(ImagePath2)" alt="">
             </div>
         </div>
+    </div>-->
+            <div class="row align-items-center  my-5">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="p-5">
+                        <div class="text-center">
+
+                        </div>
+                        <div class="text-hover my-3">
+                            <h3>Chính sách sản phẩm</h3>
+
+                        </div>
+                        <div class="">
+                            <p>
+                                <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Sản xuất và độc quyền tại Đồ da
+                                Tâm Anh
+                            </p>
+                            <p><i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Bảo hành 12 tháng</p>
+                            <p>
+                                <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Giao hàng toàn quốc, thanh toán
+                                sau khi nhận hàng
+                            </p>
+                            <p>
+                                <i class="text-color fa-1x me-2 fas fa-dot-circle"></i>Đổi trả hàng trong vòng 15 ngày
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="img_hover">
+                        @{
+                            string ImagePath3 = "~/wwwroot/Images/" + item.anh;
+                        }
+                        <img class="w-100" src="@Url.Content(ImagePath3)" alt="">
+                    </div>
+
+                </div>
+            </div>
         </div>
     }
 

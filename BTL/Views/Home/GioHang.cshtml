@@ -1,192 +1,204 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "GioHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 0;
 }
 @model IEnumerable<BTL.Models.SanPham>
 
-<div class="container-fluid">
-    
-    <div class="container">
-        <h3 class="py-4 m-0 border-bottom">THANH TOÁN</h3>
-        <div class="d-flex justify-content-between align-items-center p-4 bg-light">
-            <p class="m-0">2 × “Giày lười nam da bò GNTA8969-D” đã được thêm vào giỏ hàng.</p>
+    <div class="container-fluid">
+    @if (ViewBag.notice != null)
+    {
+        <div style="color: red; margin-left: 300px; font-size: 30px; margin-top: 100px">
+            @ViewBag.notice
+
+            <div><a href="@Url.Action("DangNhap", "Home")" class="btn btn-primary"> Đăng nhập</a></div>
         </div>
-        <h5 class="my-3">Đơn hàng ( 2 sản phẩm )</h5>
-        <p class="font-weight-bold">Sản phẩm</p>
-        @if (Model.Count() == 0)
-        {
-            <p style="margin-left: 200px;color: red">Chưa có sản phẩm nào được đưa vào giỏ hàng <a href="@Url.Action("SanPham", "Home")" style="margin-left: 50px" class="btn btn-primary">Đến mua hàng</a></p>
 
-        }
-        else
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">giá</th>
-                        <th scope="col">Ảnh</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+    }
+    else if (ViewBag.gioHang == null)
+    {
+        <div style="color: red; margin-left: 300px; font-size: 30px; margin-top: 100px">
+            @ViewBag.noItem
+        </div>
+    }
+    else
+    {
+        
+            <div class="container">
+                @foreach (var item in ViewBag.gioHang)
+                {
+                    index++;
+                }
+                <h3 class="py-4 m-0 border-bottom">DANH SÁCH GIỎ HÀNG</h3>
+                <h5 class="my-3">Đơn hàng ( @index sản phẩm )</h5>
+                <h3><a class="btn btn-primary" href="@Url.Action("SanPham", "Home")"> Mua Hàng Tiếp</a></h3>
+                <p class="font-weight-bold">Sản phẩm</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mã Sản Phẩm</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Ảnh</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        @foreach (var item in ViewBag.gioHang)
                         {
                             <tr>
-                                <th scope="row">@Html.DisplayFor(modelItem => item.maSanPham) </th>
-                                <th scope="row">@Html.DisplayFor(modelItem => item.tenSanPham) </th>
-                                <td>@Html.DisplayFor(modelItem => item.gia)</td>
-
+                                <th scope="row">@item.maSanPham</th>
+                                <td scope="row">@item.tenSanPham</td>
+                                <td scope="row">@item.soLuongCo</td>
+                                <td scope="row">@item.gia</td>
+                                @{
+                                    string ImagePath = "~/wwwroot/asset/images/products/" + @item.anh;
+                                }
+                                <td scope="row"><img class="me-2" style="width: 100px; height: 100px; padding-left: 10px" src="@Url.Content(ImagePath)" alt=""></td>
                                 <td>
-                                    @{
-                                        string ImagePath = "~/wwwroot/asset/images/products/" + item.anh;
+                                    @using (Html.BeginForm("DeleteGioHang", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "draw_form" }))
+                                    {
+                                    @Html.AntiForgeryToken()
+                                    <input name="maSanPham" style="display: none" value="@item.maSanPham" />
+                                    <div class="font_size-2 text-uppercase text-color ps-5" style="margin-top: 40px">
+                                        <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="btn btn-primary" value="XÓA">
+                                    </div>
                                     }
-                                    <img style="width:100px;" class="me-2" src="@Url.Content(ImagePath)" alt="">
                                 </td>
                             </tr>
-                        }
+                                    }
 
-                    }
-                </tbody>
-            </table>
-        }
-    <div style="display: inline-block">
-        <button style="margin-left: 600px" class="btn btn-primary">THANH TOÁN</button>
-        <h4 style="margin-left: 600px">Tổng tiền @ViewBag.TienTong</h4>
-    </div>
-        <p style="margin-top: 100px">Sử dụng mã giảm giá</p>
-        <div class="d-flex">
-            <input type="text" class="form-control" style="width: 200px;" name="" placeholder="Nhập mã giảm giá">
-            <button class="btn btn-primary mx-2">Áp Dụng</button>
-            <button class="btn btn-secondary">Cập nhật giỏ hàng</button>
-        </div>
-        <div class="py-4 border-top">
-
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <h4 class="text-uppercase">Thông tin cá nhân</h4>
-                    <form>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Họ Tên *</label>
-                            <input type="text" class="form-control" placeholder="Họ tên" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Địa chỉ *</label>
-                            <input type="text" class="form-control" placeholder="Địa chỉ" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Số điện thoại *</label>
-                            <input type="text" class="form-control" placeholder="Số điện thoại" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Địa chỉ email *</label>
-                            <input type="text" class="form-control" placeholder="Địa chỉ mail" id="exampleInputPassword1">
-                        </div>
-                    </form>
+                    </tbody>
+                </table>
+                <p style="margin-top: 100px">Sử dụng mã giảm giá</p>
+                <div class="d-flex">
+                    <input type="text" class="form-control" style="width: 200px;" name="" placeholder="Nhập mã giảm giá">
+                    <button class="btn btn-primary mx-2">Áp Dụng</button>
+                    <button class="btn btn-secondary">Cập nhật giỏ hàng</button>
                 </div>
+                <div class="py-4 border-top">
 
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <h4 class="text-uppercase">Thông tin thêm</h4>
-                    <p class="m-0 mb-1">Chú thích thêm (tuỳ chọn)</p>
-                    <textarea class="form-control">Yêu cầu của bạn về đơn hàng</textarea>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <h4 class="text-uppercase">Thông tin cá nhân</h4>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Họ Tên *</label>
+                                    <input type="text" class="form-control" placeholder="Họ tên" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Địa chỉ *</label>
+                                    <input type="text" class="form-control" placeholder="Địa chỉ" id="exampleInputPassword1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Số điện thoại *</label>
+                                    <input type="text" class="form-control" placeholder="Số điện thoại" id="exampleInputPassword1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Địa chỉ email *</label>
+                                    <input type="text" class="form-control" placeholder="Địa chỉ mail" id="exampleInputPassword1">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <h4 class="text-uppercase">Thông tin thêm</h4>
+                            <p class="m-0 mb-1">Chú thích thêm (tuỳ chọn)</p>
+                            <textarea class="form-control">Yêu cầu của bạn về đơn hàng</textarea>
+                        </div>
+
+                    </div>
+
                 </div>
-
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p>Tổng tiền: 1,740,000₫</p>
+                        <h4 class="text-uppercase">Số tiền cần thanh toán: <span class="text-color">1,740,000₫</span></h4>
+                    </div>
+                    <button class="btn btn-primary">ĐẶT HÀNG</button>
+                </div>
             </div>
-
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <p>Tổng tiền: 1,740,000₫</p>
-                <h4 class="text-uppercase">Số tiền cần thanh toán: <span class="text-color">1,740,000₫</span></h4>
-            </div>
-            <button class="btn btn-primary">ĐẶT HÀNG</button>
-        </div>
+    }  <!--header bố cục trang -->
     </div>
+<div class="review my-5">
+    <h3 class="text-center text-color">REVIEWS</h3>
+    <div class="row container">
 
-    <!--header bố cục trang -->
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="p-4 text-center">
+                <img class="rounded-circle"
+                     src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
+            </div>
+            <div class="text-center">
+                <h5>NGUYỄN ĐÌNH THIỆN</h5>
+                <p>Nhân viên văn phòng</p>
+            </div>
+            <p class="text-justify">
+                Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
+                thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
+                ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
+            </p>
+            <p class="text-center">
+                2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+            </p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="p-4 text-center">
+                <img class="rounded-circle"
+                     src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
+            </div>
+            <div class="text-center">
+                <h5>NGUYỄN ĐÌNH THIỆN</h5>
+                <p>Nhân viên văn phòng</p>
+            </div>
+            <p class="text-justify">
+                Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
+                thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
+                ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
+            </p>
+            <p class="text-center">
+                2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+            </p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="p-4 text-center">
+                <img class="rounded-circle"
+                     src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
+            </div>
+            <div class="text-center">
+                <h5>NGUYỄN ĐÌNH THIỆN</h5>
+                <p>Nhân viên văn phòng</p>
+            </div>
+            <p class="text-justify">
+                Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
+                thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
+                ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
+            </p>
+            <p class="text-center">
+                2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+                <i class="fas fa-star text-color"></i>
+            </p>
+        </div>
 
+
+    </div>
 </div>
-    <div class="review my-5">
-        <h3 class="text-center text-color">REVIEWS</h3>
-        <div class="row container">
-
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="p-4 text-center">
-                    <img class="rounded-circle"
-                         src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                </div>
-                <div class="text-center">
-                    <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                    <p>Nhân viên văn phòng</p>
-                </div>
-                <p class="text-justify">
-                    Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
-                    thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
-                    ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                </p>
-                <p class="text-center">
-                    2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                </p>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="p-4 text-center">
-                    <img class="rounded-circle"
-                         src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                </div>
-                <div class="text-center">
-                    <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                    <p>Nhân viên văn phòng</p>
-                </div>
-                <p class="text-justify">
-                    Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
-                    thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
-                    ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                </p>
-                <p class="text-center">
-                    2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                </p>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="p-4 text-center">
-                    <img class="rounded-circle"
-                         src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-                </div>
-                <div class="text-center">
-                    <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                    <p>Nhân viên văn phòng</p>
-                </div>
-                <p class="text-justify">
-                    Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
-                    thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
-                    ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-                </p>
-                <p class="text-center">
-                    2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                    <i class="fas fa-star text-color"></i>
-                </p>
-            </div>
-
-
-        </div>
     </div>
-    </div>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/swiper.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+<script src="./js/swiper.js"></script>
 </body>
 
 </html>

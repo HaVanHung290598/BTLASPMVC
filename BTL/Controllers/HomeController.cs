@@ -7,9 +7,10 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using PagedList;
 using System.IO;
+using System.Data;
 
 namespace BTL.Controllers
-{ 
+{
     public class HomeController : Controller
     {
         QLDoDa db = new QLDoDa();
@@ -110,25 +111,11 @@ namespace BTL.Controllers
         }
         public ActionResult SanPhamChiTiet(string id)
         {
-            List<SanPham> sanPhams = new List<SanPham>();
-            Chitietdonhang chitietdonhang = new Chitietdonhang();
-            if(Session["maTaiKhoan"] != null)
-            {
-                chitietdonhang.maDonHang = (int)Session["maTaiKhoan"];
-                chitietdonhang.maTaiKhoan = (int)Session["maTaiKhoan"];
-                chitietdonhang.maSanPham = Int32.Parse(id);
-                db.Chitietdonhangs.Add(chitietdonhang);
-                db.SaveChanges();
-            }
-            if (id == null)
-            {
-                sanPhams = db.SanPhams.Select(s => s).ToList();
-            }
-            else
-            {
-                sanPhams = db.SanPhams.Where(s => s.maSanPham.ToString().Equals(id)).Select(s => s).ToList();
-            }
+            Session["id"] = id;
             
+            List<SanPham> sanPhams = new List<SanPham>();
+            
+            sanPhams = db.SanPhams.Where(s => s.maSanPham.ToString().Equals(id)).Select(s => s).ToList();
             return View(sanPhams);
         }
         public ActionResult LienHe()
@@ -142,6 +129,8 @@ namespace BTL.Controllers
             return View();
         }
 
+
+
         public ActionResult TaiKhoan()
         {
             return View();
@@ -153,7 +142,7 @@ namespace BTL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DangNhap(string tenDangNhap, string password, RouteCollection routes)
+        public ActionResult DangNhap(string tenDangNhap, string password)
         {
             if (ModelState.IsValid)
             {
@@ -191,7 +180,6 @@ namespace BTL.Controllers
             taiKhoan.maLoaiTK = 2;
             taiKhoan.anh = "";
             var f = Request.Files["ImageFile"];
-            var pass = Request.Files["retrypassword"];
 
             if (f != null && f.ContentLength > 0)
             {
@@ -200,40 +188,112 @@ namespace BTL.Controllers
                 f.SaveAs(UploadPath);
                 taiKhoan.anh = FileName;
             }
-            db.TaiKhoans.Add(taiKhoan);
-            db.SaveChanges();
-            return RedirectToAction("register");
-        }
-           
-        public ActionResult GioHang()
-        {
-            List<Chitietdonhang> chitietdonhangs = new List<Chitietdonhang>();
-            
-            if(Session["maTaiKhoan"] != null)
+            List<TaiKhoan> taiKhoans = new List<TaiKhoan>();
+            string acc = taiKhoan.tenDangNhap.ToString();
+            taiKhoans = db.TaiKhoans.Where(s => s.tenDangNhap.ToString().Equals(acc)).Select(s =>s).ToList();
+            if(taiKhoans.Count == 0)
             {
-                var i = Session["maTaiKhoan"].ToString();
-                chitietdonhangs = db.Chitietdonhangs.Where(s => s.maTaiKhoan.ToString().Equals(i)).Select(s => s).ToList();
+                db.TaiKhoans.Add(taiKhoan);
+                db.SaveChanges();
+                TempData["Message"] = "Đăng Ký Thành Công";
+                return RedirectToAction("DangNhap");
             }
             else
             {
-                chitietdonhangs = db.Chitietdonhangs.Select(s => s).ToList();
+                ViewBag.errDky = "Tên Đăng Nhập Đã tồn tại";
+                return View();
             }
-            List<SanPham> sanPhams = new List<SanPham>();
-            int TongTien = 0;
-            foreach (var item in chitietdonhangs)
+        }
+
+        public ActionResult DonHang()
+        {
+            
+            return View();
+        }
+
+        public ActionResult GioHang(int? maSanPham, int? soLuong, double? gia)
+        {
+            if (Session["maTaiKhoan"] == null)
             {
-                foreach(var item2 in db.SanPhams.Select(s => s).ToList())
+                ViewBag.notice = "Bạn hãy đăng nhập để xem giỏ hàng";
+                ViewBag.gioHang = Session["gioHang"];
+                return View();
+            }
+            else if (maSanPham == null && Session["gioHang"] == null)
+            {
+                ViewBag.noItem = "Chưa có sản phẩm nào trong giỏ hàng";
+                return View();
+            }
+            else { 
+                List<SanPham> a = new List<SanPham>();
+                var sp = db.SanPhams.Find(maSanPham);
+                if(Session["gioHang"] == null)
                 {
-                    if(item2.maSanPham == item.maSanPham)
+                    sp.soLuongCo = (int)soLuong;
+                    sp.gia = (decimal)gia * (int)soLuong;
+                    a.Add(sp);
+                    Session["gioHang"] = a;
+                }
+                else
+                {
+                    a = (List<SanPham>)Session["gioHang"];
+                    bool m = false;
+                    foreach(var item in a)
                     {
-                        sanPhams.Add(item2);
-                        TongTien = (int)(TongTien + item2.gia);
+                        if (item.maSanPham == maSanPham)
+                        {
+                            m = true;
+                            break;
+                        }
+                    }
+                    if (m == true)
+                    {
+                        foreach (var item in a)
+                        {
+                            if (item.maSanPham == maSanPham)
+                            {
+                                sp.soLuongCo = item.soLuongCo + (int)soLuong;
+                                sp.gia = item.gia + ((decimal)gia*(int)soLuong);
+                                Session["bientam"] = item;
+                            }
+                        }
+                        a.Remove((SanPham)Session["bientam"]);
+                        a.Add(sp);
+                        Session["gioHang"] = a;
+                    }
+                    else if (soLuong == null || gia == null)
+                    {
+                        Session["gioHang"] = a;
+                    }
+                    else
+                    {
+                        sp.soLuongCo = (int)soLuong;
+                        sp.gia = (decimal)gia * (int)soLuong;
+                        a.Add(sp);
+                        Session["gioHang"] = a;
                     }
                 }
+                ViewBag.gioHang = Session["gioHang"];
+                return View();
             }
-            ViewBag.TienTong = TongTien.ToString();
-            return View(sanPhams);
         }
+
+        public ActionResult DeleteGioHang(int? maSanPham)
+        {
+            List<SanPham> a = new List<SanPham>();
+            a = (List<SanPham>)Session["gioHang"];
+            foreach (var item in a)
+            {
+                if (item.maSanPham == maSanPham)
+                {
+                    Session["bientam"] = item;
+                }
+            }
+            a.Remove((SanPham)Session["bientam"]);
+            Session["gioHang"] = a;
+            return RedirectToAction("GioHang");
+        }
+
         public PartialViewResult _Menu()
         {
             var danhMuc = db.DanhMucs.Select(n => n);
