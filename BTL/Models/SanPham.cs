@@ -23,6 +23,7 @@ namespace BTL.Models
         [StringLength(100)]
         public string tenSanPham { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:#,###}")]
         [Column(TypeName = "money")]
         public decimal gia { get; set; }
 

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BTL.Models.Donhang>
+@{
+    ViewBag.Title = "DonHang";
+}
+
+
+<div class="container-fluid" style="margin-bottom: 200px">
+
+    <div class="container">
+
+        <h3 class="py-4 m-0 border-bottom">ĐƠN HÀNG</h3>
+        <h3><a class="btn btn-primary" href="@Url.Action("SanPham", "Home")"> Mua Hàng Tiếp</a></h3>
+        <p class="font-weight-bold">Sản phẩm</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Mã Đơn Hàng</th>
+                        <th scope="col">Tên Người Mua</th>
+                        <th scope="col">Trạng thái giao hàng</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@Html.DisplayFor(modelItem => item.maDonHang)</th>
+                            <td scope="row">@Html.DisplayFor(modelItem => item.hoTen)</td>
+                            <td scope="row">@Html.DisplayFor(modelItem => item.trangThai)</td>
+                            <td scope="row" class="text-uppercase text-color">@Html.DisplayFor(modelItem => item.tongTien) ₫</td>
+                            <td scope="row">@Html.DisplayFor(modelItem => item.email)</td>
+                            <td>
+                                @using (Html.BeginForm("ChiTietDonHang", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "draw_form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input name="maDonHang" style="display: none" value="@item.maDonHang" />
+                                    <div class="font_size-2 text-uppercase text-color ps-5" style="margin-top: 40px">
+                                        <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="btn btn-primary" value="Xem chi tiết đơn hàng">
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    </div>
+    }  <!--header bố cục trang -->
+</div>
+

@@ -8,18 +8,18 @@
 
 <div class="container-fluid">
     <div class="d-flex align-items-center justify-content-between py-4 border-top border-bottom" style="width: 1000px; margin-left: 310px">
-        <div class="">
-            <p> @Html.ActionLink("Sắp Xếp Theo Tên", "SanPham", new { sortOder = ViewBag.SapTheoTen })</p>
+        <div>
+            <p style="color: aqua"> @Html.ActionLink("Sắp Xếp Theo Tên", "SanPham", new { sortOder = ViewBag.SapTheoTen })</p>
         </div>
-        <div class="">
-            <p> @Html.ActionLink("Sắp Xếp Theo Giá", "SanPham", new { sortOder = ViewBag.SapTheoGia })</p>
+        <div
+            <p style="color: aqua"> @Html.ActionLink("Sắp Xếp Theo Giá", "SanPham", new { sortOder = ViewBag.SapTheoGia })</p>
         </div>
         <div class="">
             @using (Html.BeginForm())
             {
                 <p>
                     Tìm  mặt  hàng:  @Html.TextBox("search", ViewBag.CurrentFilter as string)
-                    <input type="submit" value="Tìm" />
+                    <input class="btn btn-primary" type="submit" value="Tìm" />
                 </p>
             }
         </div>
@@ -34,7 +34,7 @@
         <div class="product_header container my-4">
             <h3 class="text-uppercase"> @Html.DisplayFor(modelItem => item.DanhMuc.tenDanhMuc)</h3>
             <div class="d-flex align-items-center justify-content-between py-4 border-top border-bottom">
-                <p class="m-0">Showing 1–18 of @Model.Count() results</p>
+                <p class="m-0">Showing 1–@Model.Count() results</p>
 
             </div>
         </div>
@@ -56,17 +56,17 @@
                                 <img class="w-100" src="@Url.Content(ImagePath)" alt="">
                             </div>
                             <div class="product_price text-center m-0 mt-3">
-                                <p class="text-uppercase text-color">@Html.DisplayFor(modelItem => item.gia)</p>
+                                <p class="text-uppercase text-color">@Html.DisplayFor(modelItem => item.gia) VNĐ</p>
                             </div>
                             <p class="px-3 pb-4 m-0">@Html.DisplayFor(modelItem => item.tenSanPham)</p>
                         </div>
                     </a>
                 </div>
             }
-            <div style="margin-top: 40px;">
+            <div>
                 <br />
                 Trang  @(Model.PageCount  <  Model.PageNumber  ?  0  :  Model.PageNumber)  /  @Model.PageCount
-                <div style="margin: 30px">
+                <div>
                     @Html.PagedListPager(Model,  page => Url.Action("SanPham",
                     new
                     {

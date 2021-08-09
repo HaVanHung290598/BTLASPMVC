@@ -17,7 +17,7 @@
                         <a href="@Url.Action("SanPhamChiTiet", "Home",new { id=item.maSanPham})">
                             <div class="product_img">
                                 @{
-                                    string ImagePath = "~/wwwroot/Images/" + item.anh;
+                                    string ImagePath = "~/wwwroot/asset/images/products/" + item.anh;
                                     <img src="@Url.Content(ImagePath)" alt="" width="250" height="250" />
                                 }
                             </div>

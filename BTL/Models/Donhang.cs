@@ -43,6 +43,7 @@ namespace BTL.Models
         [StringLength(100)]
         public string trangThai { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:#,###}")]
         [Column(TypeName = "money")]
         public decimal tongTien { get; set; }
 

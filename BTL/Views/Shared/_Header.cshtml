@@ -33,7 +33,8 @@
 
                     @if (Session["Email"] != null)
                     {
-                        <li><a href="@Url.Action("GioHang", "Home")"><i class="fas fa-cart-plus"></i> Giỏ hàng</a></li>
+                        <li><a href="@Url.Action("GioHang", "Home")"><i class="fas fa-sign-in-alt"></i> Giỏ Hàng</a></li>
+                        <li><a href="@Url.Action("DonHang", "Home")"><i class="fas fa-sign-in-alt"></i> Đơn Hàng</a></li>
                         <li>Xin Chào, @Session["Email"]</li>
                         <li>@Html.ActionLink("Đăng Xuất", "DangXuat", "Home", htmlAttributes: new { @style = "front-size:small" })</li>
                     }
