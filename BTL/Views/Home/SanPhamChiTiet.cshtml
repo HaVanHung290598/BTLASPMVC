@@ -40,24 +40,13 @@
                             <p>– Bảo hành 12 tháng</p>
                         </div>
                         <p style="font-size: 30px;" class="font_size-2 text-uppercase text-color ps-5">
-                            @Html.DisplayFor(modelItem => item.gia)
+                            @Html.DisplayFor(modelItem => item.gia) vnđ
                         </p>
                         <div class="col-lg-3 ms-5">
                             <div class="input-group">
-                                <span class="input-group-btn">
-                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number"
-                                            data-type="minus" data-field="">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </span>
-                                <input style="text-align: center" type="text" id="soLuong" name="soLuong" class="form-control input-number"
+                                <div>Số lượng muốn mua</div>
+                                <input style="text-align: center" type="number" id="soLuong" name="soLuong" class="form-control input-number"
                                        value="1" min="1" max="100">
-                                <span class="input-group-btn">
-                                    <button type="button" class="quantity-right-plus btn btn-success btn-number"
-                                            data-type="plus" data-field="">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </span>
                             </div>
                         </div>
 

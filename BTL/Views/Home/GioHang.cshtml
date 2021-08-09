@@ -43,15 +43,18 @@
                             <th scope="col">Ảnh</th>
                         </tr>
                     </thead>
-
+                    @{ 
+                        decimal m = 0;
+                    }
                     <tbody>
                         @foreach (var item in ViewBag.gioHang)
                         {
+                            m = m + item.gia;
                             <tr>
                                 <th scope="row">@item.maSanPham</th>
                                 <td scope="row">@item.tenSanPham</td>
                                 <td scope="row">@item.soLuongCo</td>
-                                <td scope="row">@item.gia</td>
+                                <td scope="row" class="text-uppercase text-color">@item.gia VNĐ</td>
                                 @{
                                     string ImagePath = "~/wwwroot/asset/images/products/" + @item.anh;
                                 }
@@ -113,88 +116,22 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p>Tổng tiền: 1,740,000₫</p>
-                        <h4 class="text-uppercase">Số tiền cần thanh toán: <span class="text-color">1,740,000₫</span></h4>
+                        <p>Tổng tiền: @m  ₫</p>
+                        <h4 class="text-uppercase">Số tiền cần thanh toán: <span class="text-color"> @m ₫</span></h4>
                     </div>
-                    <button class="btn btn-primary">ĐẶT HÀNG</button>
-                </div>
+                    @using (Html.BeginForm("DonHang", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "draw_form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input name="tongTien" style="display: none" value="@m" />
+                        <input name="check" style="display: none" value="1" />
+                        <div class="font_size-2 text-uppercase text-color ps-5" style="margin-top: 40px">
+                            <input style="background-color: aliceblue; color: black; font-weight: bolder" type="submit" class="btn btn-primary" value="ĐẶT HÀNG">
+                        </div>
+                    }
+                </div> 
             </div>
     }  <!--header bố cục trang -->
     </div>
-<div class="review my-5">
-    <h3 class="text-center text-color">REVIEWS</h3>
-    <div class="row container">
-
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="p-4 text-center">
-                <img class="rounded-circle"
-                     src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-            </div>
-            <div class="text-center">
-                <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                <p>Nhân viên văn phòng</p>
-            </div>
-            <p class="text-justify">
-                Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
-                thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
-                ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-            </p>
-            <p class="text-center">
-                2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-            </p>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="p-4 text-center">
-                <img class="rounded-circle"
-                     src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-            </div>
-            <div class="text-center">
-                <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                <p>Nhân viên văn phòng</p>
-            </div>
-            <p class="text-justify">
-                Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
-                thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
-                ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-            </p>
-            <p class="text-center">
-                2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-            </p>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="p-4 text-center">
-                <img class="rounded-circle"
-                     src="https://tamanh.net/wp-content/uploads/2019/03/nguyen-dinh-thien-nvvp-min.png" alt="">
-            </div>
-            <div class="text-center">
-                <h5>NGUYỄN ĐÌNH THIỆN</h5>
-                <p>Nhân viên văn phòng</p>
-            </div>
-            <p class="text-justify">
-                Mình đã mua ví của Tâm Anh cho bản thân dùng cũng như mua tặng khá nhiều. Chất lượng ví Tâm Anh mình
-                thấy trội hơn hẳn các nhãn khác với cùng mức giá vì dùng lâu mà chất da vẫn mềm. Mẫu ví thì khá hợp
-                ý mình vì có nhiều ngăn đựng thẻ (tiện cho người ít dùng tiền mặt như mình
-            </p>
-            <p class="text-center">
-                2020-11-24 13:34:17- <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-                <i class="fas fa-star text-color"></i>
-            </p>
-        </div>
-
-
-    </div>
-</div>
     </div>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>

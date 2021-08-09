@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BTL.Models.SanPham>
+@{
+    ViewBag.Title = "ChiTietDonHang";
+}
+
+<div class="container-fluid" style="margin-bottom: 200px">
+
+    <div class="container">
+
+        <h3 class="py-4 m-0 border-bottom">ĐƠN HÀNG</h3>
+        <h3><a class="btn btn-primary" href="@Url.Action("DonHang", "Home")"> Xem lại danh sách đơn hàng</a></h3>
+        <p class="font-weight-bold">Đơn Hàng</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mã Sản Phẩm</th>
+                    <th scope="col">Tên Sản Phẩm</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Tổng tiền</th>
+                </tr>
+            </thead>
+            @{
+                List<int> dssoluong = new List<int>();
+                dssoluong = ViewBag.dsSoLuong;
+                List<int> dsgia = new List<int>();
+                dsgia = ViewBag.dsgia;
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@Html.DisplayFor(modelItem => item.maSanPham)</th>
+                        <td scope="row">@Html.DisplayFor(modelItem => item.tenSanPham)</td>
+                        @{
+                            string ImagePath = "~/wwwroot/asset/images/products/" + @item.anh;
+                        }
+                        <td scope="row"><img class="me-2" style="width: 100px; height: 100px; padding-left: 10px" src="@Url.Content(ImagePath)" alt=""></td>
+                        <td scope="row">@dssoluong[index]</td>
+                        <td scope="row">@dsgia[index]</td>
+                    </tr>
+                    index++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+    }  <!--header bố cục trang -->
+</div>
+

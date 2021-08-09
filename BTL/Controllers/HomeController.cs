@@ -8,6 +8,8 @@ using System.Web.Routing;
 using PagedList;
 using System.IO;
 using System.Data;
+using System.Data.Entity.Validation;
+using System.Text;
 
 namespace BTL.Controllers
 {
@@ -205,10 +207,88 @@ namespace BTL.Controllers
             }
         }
 
-        public ActionResult DonHang()
+        public object ChiTietDonHang(int? maDonHang)
         {
-            
-            return View();
+            List<Chitietdonhang> chitietdonhangs = new List<Chitietdonhang>();
+            List <SanPham> sanPhams = new List<SanPham>();
+            List<int> a = new List<int>();
+            List<int> b = new List<int>();
+            chitietdonhangs = db.Chitietdonhangs.Where(s => s.maDonHang.ToString().Equals(maDonHang.ToString())).Select(s => s).ToList();
+            foreach(var item in chitietdonhangs)
+            {
+                SanPham sanPham = db.SanPhams.Find(item.maSanPham);
+                sanPhams.Add(sanPham);
+                a.Add(item.soLuong);
+                b.Add((int)item.tongTien);
+            }
+            ViewBag.dssoluong = a;
+            ViewBag.dsgia = b;
+            return View(sanPhams);
+        }
+
+        public ActionResult DonHang(Donhang donhang, decimal? tongTien, int? check)
+        {
+            try
+            {
+                List<SanPham> a = new List<SanPham>();
+                a = (List<SanPham>)Session["gioHang"];
+                if (check == 1)
+                {
+                    donhang.maDonHang = db.Donhangs.ToList().Last().maDonHang + 1;
+                    donhang.hoTen = Session["HoTen"].ToString();
+                    donhang.diaChi = Session["DiaChi"].ToString();
+                    donhang.soDienThoai = Session["sdt"].ToString();
+                    var i = Session["mail"].ToString();
+                    donhang.email = i.Substring(0, 29);
+                    donhang.trangThai = "PD";
+                    donhang.tongTien = (decimal)tongTien;
+                    donhang.maTaiKhoan = (int)Session["maTaiKhoan"];
+                    db.Donhangs.Add(donhang);
+                    db.SaveChanges();
+
+                    foreach (var item in a)
+                    {
+                        Chitietdonhang chitietdonhang = new Chitietdonhang
+                        {
+                            maSanPham = item.maSanPham,
+                            maDonHang = donhang.maDonHang,
+                            maTaiKhoan = donhang.maTaiKhoan,
+                            soLuong = item.soLuongCo,
+                            tongTien = item.gia
+                        };
+                        db.Chitietdonhangs.Add(chitietdonhang);
+                        db.SaveChanges();
+
+                    }
+                }
+                List<Donhang> donhangs = new List<Donhang>();
+                int m = (int)Session["maTaiKhoan"];
+                donhangs = db.Donhangs.Where(s => s.maTaiKhoan.Equals(m)).Select(s => s).ToList();
+
+                if(donhangs == null)
+                {
+                    ViewBag.nullDonHang = "Chưa có đơn hàng nào";
+                }
+                Session["gioHang"] = null;
+                return View(donhangs);
+            }
+            catch (DbEntityValidationException e)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    sb.AppendLine(string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                                    eve.Entry.Entity.GetType().Name,
+                                                    eve.Entry.State));
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        sb.AppendLine(string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                                    ve.PropertyName,
+                                                    ve.ErrorMessage));
+                    }
+                }
+                throw new DbEntityValidationException(sb.ToString(), e);
+            }
         }
 
         public ActionResult GioHang(int? maSanPham, int? soLuong, double? gia)
@@ -309,6 +389,7 @@ namespace BTL.Controllers
         {
             return View();
         }
+
 
         public ActionResult DangXuat()
         {

@@ -21,6 +21,7 @@ namespace BTL.Models
 
         public int soLuong { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:#,###}")]
         [Column(TypeName = "money")]
         public decimal tongTien { get; set; }
 
