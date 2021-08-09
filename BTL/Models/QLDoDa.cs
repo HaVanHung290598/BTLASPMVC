@@ -21,10 +21,6 @@ namespace BTL.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Chitietdonhang>()
-                .Property(e => e.tongTien)
-                .HasPrecision(19, 4);
-
             modelBuilder.Entity<DanhMuc>()
                 .HasMany(e => e.SanPhams)
                 .WithRequired(e => e.DanhMuc)

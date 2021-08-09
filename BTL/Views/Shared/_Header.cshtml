@@ -25,17 +25,23 @@
             </div>
             <div class="menu2">
                 <ul style="padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600">
-                    <li><a href="@Url.Action("TaiKhoan", "Home")"><i class="fas fa-user"></i> Tài khoản</a></li>
-                    @*<li><a href=""><i class="fas fa-star"></i> Yêu thích</a></li>*@
-                    <li><a href="@Url.Action("GioHang", "Home")"><i class="fas fa-cart-plus"></i> Giỏ hàng</a></li>
                     @if (Session["Email"] != null)
                     {
+                        <li><a href="@Url.Action("TaiKhoan", "Home")"><i class="fas fa-user"></i> Tài khoản</a></li>
+
+                    }
+
+                    @if (Session["Email"] != null)
+                    {
+                        <li><a href="@Url.Action("GioHang", "Home")"><i class="fas fa-cart-plus"></i> Giỏ hàng</a></li>
                         <li>Xin Chào, @Session["Email"]</li>
                         <li>@Html.ActionLink("Đăng Xuất", "DangXuat", "Home", htmlAttributes: new { @style = "front-size:small" })</li>
                     }
                     else
                     {
+                        <li><a href="@Url.Action("GioHang", "Home")"><i class="fas fa-sign-in-alt"></i> Giỏ Hàng</a></li>
                         <li><a href="@Url.Action("DangNhap", "Home")"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
+                        <li><a href="@Url.Action("register", "Home")"><i class="fas fa-sign-in-alt"></i> Đăng Ký</a></li>
                     }
                     @{
                         if (HttpContext.Current.Session["loaiTaiKhoan"] != null && HttpContext.Current.Session["loaiTaiKhoan"].ToString() == "admin")
